@@ -1,4 +1,4 @@
-# Code Repository for Temporal 101 (.NET)
+# Code Repository for Temporal 102 (.NET)
 
 This repository provides code used for exercises and demonstrations
 included in the .NET version of the [Temporal 102](https://github.com/temporalio/edu-102-dotnet-content) training course.
