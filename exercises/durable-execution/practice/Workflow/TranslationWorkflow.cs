@@ -12,13 +12,14 @@ public class TranslationWorkflow
     [WorkflowRun]
     public async Task<TranslationWorkflowOutput> RunAsync(TranslationWorkflowInput input)
     {
-        var logger = Workflow.Logger;
+        // TODO Part A: Define the Workflow logger here
 
-        logger.LogInformation("TranslationWorkflow invoked with name {Name}", input.Name);
-
+        // TODO Part A: At the Info level, log that the Workflow function has been invoked.
+        // Include the name passed as input.
         var activityOptions = new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(45) };
 
-        logger.LogDebug("Preparing to translate 'Hello', '{LanguageCode}'", input.LanguageCode);
+        // TODO Part A: At the Debug level, log a message stating that the translation will happen now
+        // Include the language code passed as input
         var helloInput = new TranslationActivityInput("Hello", input.LanguageCode);
 
         var helloResult =
@@ -26,10 +27,11 @@ public class TranslationWorkflow
 
         var helloMessage = $"{helloResult.Translation}, {input.Name}";
 
-        logger.LogDebug("Sleeping between translation calls");
-        await Workflow.DelayAsync(TimeSpan.FromSeconds(10));
+        // TODO Part C: At the Debug level, log the message: "Sleeping between translation calls"
+        // TODO Part C: Use `Workflow.DelayAsync` to set a Timer for 10 seconds.
 
-        logger.LogDebug("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
+        // TODO Part A: At the Debug level, log a message stating that the translation will happen now
+        // Include the language code passed as input
         var goodbyeInput = new TranslationActivityInput("Goodbye", input.LanguageCode);
 
         var byeMessage =
