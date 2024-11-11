@@ -1,6 +1,6 @@
-namespace TemporalioDurableExecution.Workflow;
+namespace TemporalioDurableExecution;
 
-public struct WorkflowConstants
+public static class WorkflowConstants
 {
     public const string TaskQueueName = "durable-exec-tasks";
 }

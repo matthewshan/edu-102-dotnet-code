@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Temporalio.Workflows;
 
-namespace TemporalioDurableExecution.Workflow;
+namespace TemporalioDurableExecution;
 
 public record TranslationWorkflowInput(string Name, string LanguageCode);
 public record TranslationWorkflowOutput(string HelloMessage, string GoodbyeMessage);
@@ -22,18 +22,18 @@ public class TranslationWorkflow
         var helloInput = new TranslationActivityInput("Hello", input.LanguageCode);
 
         var helloResult =
-            await Workflow.ExecuteActivityAsync((DurableExecutionActivities act) => act.TranslateTerm(helloInput), activityOptions);
+            await Workflow.ExecuteActivityAsync((DurableExecutionActivities act) => act.TranslateTermAsync(helloInput), activityOptions);
 
         var helloMessage = $"{helloResult.Translation}, {input.Name}";
 
         logger.LogDebug("Sleeping between translation calls");
-        await Task.Delay(TimeSpan.FromSeconds(10));
+        await Workflow.DelayAsync(TimeSpan.FromSeconds(10));  // Changed from Task.Delay
 
         logger.LogDebug("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
         var goodbyeInput = new TranslationActivityInput("Goodbye", input.LanguageCode);
 
         var byeResult =
-            await Workflow.ExecuteActivityAsync(() => DurableExecutionActivities.TranslateTerm(goodbyeInput), activityOptions);
+            await Workflow.ExecuteActivityAsync((DurableExecutionActivities act) => act.TranslateTermAsync(goodbyeInput), activityOptions);
 
         var goodbyeMessage = $"{byeResult.Translation}, {input.Name}";
 

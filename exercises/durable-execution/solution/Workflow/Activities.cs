@@ -1,15 +1,17 @@
 using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 
-namespace TemporalioDurableExecution.Workflow;
+namespace TemporalioDurableExecution;
+
 public record TranslationActivityInput(string Term, string LanguageCode);
 public record TranslationActivityOutput(string Translation);
+
 public class DurableExecutionActivities
 {
     private static readonly HttpClient Client = new();
 
     [Activity]
-    public async Task<TranslationActivityOutput> TranslateTerm(TranslationActivityInput input)
+    public async Task<TranslationActivityOutput> TranslateTermAsync(TranslationActivityInput input)
     {
         var logger = ActivityExecutionContext.Current.Logger;
         logger.LogInformation("Translating term {Term} to {LanguageCode}", input.Term, input.LanguageCode);
