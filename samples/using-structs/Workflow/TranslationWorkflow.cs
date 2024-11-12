@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Temporalio.Workflows;
 
-namespace TemporalioUsingStructs;
+namespace TemporalioDurableExecution;
 
 public record TranslationWorkflowInput(string Name, string LanguageCode);
 public record TranslationWorkflowOutput(string HelloMessage, string GoodbyeMessage);

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 
-namespace TemporalioUsingStructs;
+namespace TemporalioDurableExecution;
 
 public record TranslationActivityInput(string Term, string LanguageCode);
 public record TranslationActivityOutput(string Translation);

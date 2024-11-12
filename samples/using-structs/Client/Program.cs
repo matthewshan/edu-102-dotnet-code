@@ -1,4 +1,4 @@
-// This file is designated to run the Workflow
+﻿// This file is designated to run the Workflow
 using Microsoft.Extensions.Logging;
 using Temporalio.Client;
 using TemporalioDurableExecution;
