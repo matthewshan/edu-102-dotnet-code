@@ -46,7 +46,8 @@ PizzaOrder CreatePizzaOrder()
     var p2 = new Pizza { Description = "Small, with pepperoni", Price = 1200 };
     var p3 = new Pizza { Description = "Medium, with extra cheese", Price = 1300 };
 
-    var pizzas = new Collection<Pizza>(new List<Pizza> { p1, p2, p3 });
+    var pizzaList = new List<Pizza> { p1, p2, p3 };
+    var pizzas = new Collection<Pizza>(pizzaList);
 
     return new PizzaOrder
     {
