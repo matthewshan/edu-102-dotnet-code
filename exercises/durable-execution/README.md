@@ -55,11 +55,12 @@ Before proceeding, make sure that there are no Workers running for this or any p
 
 1. In another terminal, start the Worker by running `dotnet run --project Worker`
 2. In another terminal, start a second Worker by running `dotnet run --project Worker`
-3. In another terminal, execute the Workflow by running `dotnet run --project Client Tatiana sk` (replace `Tatiana` with your first name) 
-4. Observe the Event History in the Web UI. 
-5. As soon as you see a log message in one of the Worker terminals indicating that it has started the Timer, press Ctrl-C in that window to kill that Worker process.
-6. Switch to the terminal window for the other Worker process. Within a few seconds, you should observe new output, indicating that it has resumed execution of the Workflow.
-7. Once you see log output indicating that translation was successful, switch back to the terminal window where you started the Workflow. 
+3. In another terminal, start the microserving by running `dotnet run --project Web`
+4. In another terminal, execute the Workflow by running `dotnet run --project Client Tatiana sk` (replace `Tatiana` with your first name) 
+5. Observe the Event History in the Web UI. 
+6. As soon as you see a log message in one of the Worker terminals indicating that it has started the Timer, press Ctrl-C in that window to kill that Worker process.
+7. Switch to the terminal window for the other Worker process. Within a few seconds, you should observe new output, indicating that it has resumed execution of the Workflow.
+8. Once you see log output indicating that translation was successful, switch back to the terminal window where you started the Workflow. 
 
 After the final step, you should see the translated Hello and Goodbye messages, which confirms that Workflow Execution completed successfully despite the original Worker being killed.
 
