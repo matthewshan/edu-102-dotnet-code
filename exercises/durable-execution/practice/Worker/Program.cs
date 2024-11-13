@@ -1,36 +1,24 @@
-// This file is designated to run the Worker
+// // This file is designated to run the Worker
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Temporalio.Client;
 using Temporalio.Worker;
+using Temporalio.Extensions.Hosting;
 using TemporalioDurableExecution;
 
-// Create a client to localhost on "default" namespace
-var client = await TemporalClient.ConnectAsync(new("localhost:7233"));
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureLogging(ctx => ctx.AddSimpleConsole().SetMinimumLevel(LogLevel.Information))
+    .ConfigureServices(ctx =>
+        ctx.
+            // Add the worker
+            AddHostedTemporalWorker(
+                clientTargetHost: "localhost:7233",
+                clientNamespace: "default",
+                taskQueue: WorkflowConstants.TaskQueueName).
+            // Add the activities class at the scoped level
+            AddScopedActivities<DurableExecutionActivities>().
+            AddWorkflow<TranslationWorkflow>())
+    .Build();
 
-// Cancellation token to shutdown worker on ctrl+c
-using var tokenSource = new CancellationTokenSource();
-Console.CancelKeyPress += (_, eventArgs) =>
-{
-    tokenSource.Cancel();
-    eventArgs.Cancel = true;
-};
-
-// Instantiating Activities
-var activities = new DurableExecutionActivities();
-
-// Create worker
-using var worker = new TemporalWorker(
-    client,
-    new TemporalWorkerOptions(WorkflowConstants.TaskQueueName).
-        AddAllActivities(activities).
-        AddWorkflow<TranslationWorkflow>());
-
-// Run worker until cancelled
-Console.WriteLine("Running worker");
-try
-{
-    await worker.ExecuteAsync(tokenSource.Token);
-}
-catch (OperationCanceledException)
-{
-    Console.WriteLine("Worker cancelled");
-}
+await host.RunAsync();
