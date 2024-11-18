@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 
 namespace TemporalioDurableExecution;
@@ -13,9 +12,6 @@ public class DurableExecutionActivities
     [Activity]
     public async Task<TranslationActivityOutput> TranslateTermAsync(TranslationActivityInput input)
     {
-        var logger = ActivityExecutionContext.Current.Logger;
-        logger.LogInformation("Translating term {Term} to {LanguageCode}", input.Term, input.LanguageCode);
-
         var lang = Uri.EscapeDataString(input.LanguageCode);
         var term = Uri.EscapeDataString(input.Term);
         var url = $"http://localhost:9998/translate?lang={lang}&term={term}";
@@ -28,8 +24,6 @@ public class DurableExecutionActivities
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        logger.LogDebug("Translation successful. Translation: {Translation}", content);
-
         return new TranslationActivityOutput(content);
     }
 }
