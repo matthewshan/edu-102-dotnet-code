@@ -20,11 +20,11 @@ public class PizzaOrderWorkflowTests
 
         // For this test, any address will have a distance of 10 kilometer, which
         // is within the delivery area
-        [Activity(nameof(Activities.GetDistanceAsync))]
+        [Activity("GetDistance")]
         Task<Distance> MockDistanceActivityAsync(Address addr) =>
             Task.FromResult(new Distance { Kilometers = 10, });
 
-        [Activity(nameof(Activities.SendBillAsync))]
+        [Activity("SendBill")]
         Task<OrderConfirmation> MockBillActivityAsync(Bill bill) =>
             Task.FromResult(
                 new OrderConfirmation
@@ -36,7 +36,14 @@ public class PizzaOrderWorkflowTests
                     Amount = 2500,
                 });
 
-        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
+        var loggerFactory = LoggerFactory.Create(builder =>
+            builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
+
+        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync(new()
+        {
+            LoggerFactory = loggerFactory,
+        });
+
         using var worker = new TemporalWorker(
             env.Client,
             new TemporalWorkerOptions(taskQueueId)
@@ -63,11 +70,17 @@ public class PizzaOrderWorkflowTests
         var taskQueueId = Guid.NewGuid().ToString();
         var order = CreatePizzaOrderForTest();
 
-        [Activity(nameof(Activities.GetDistanceAsync))]
+        [Activity("GetDistance")]
         Task<Distance> MockDistanceActivityAsync(Address addr) =>
             Task.FromResult(new Distance { Kilometers = 30, });
 
-        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
+        var loggerFactory = LoggerFactory.Create(builder =>
+            builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
+
+        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync(new()
+        {
+            LoggerFactory = loggerFactory,
+        });
 
         using var worker = new TemporalWorker(
             env.Client,

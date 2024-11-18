@@ -36,9 +36,7 @@ public class PizzaOrderActivityTests
             State = "CA",
             PostalCode = "94103",
         };
-
-        var result = await env.RunAsync(() => Activities.GetDistanceAsync(input)); 
-
+        var result = await env.RunAsync(() => Activities.GetDistanceAsync(input));
         Assert.Equal(8, result.Kilometers);
     }
 
@@ -72,7 +70,7 @@ public class PizzaOrderActivityTests
             Amount = 6500, // amount qualifies for discount
         };
 
-        var result = await env.RunAsync(() => Activities.SendBillAsync(input));  // Changed from SendBill
+        var result = await env.RunAsync(() => Activities.SendBillAsync(input));
 
         Assert.Equal("PI314", result.OrderNumber);
         Assert.Equal(6000, result.Amount);
