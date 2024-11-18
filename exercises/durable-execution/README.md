@@ -1,4 +1,4 @@
-# Exercise 2: Observing Durable Execution
+# Exercise 1: Observing Durable Execution
 During this exercise, you will
 
 * Create Workflow and Activity loggers 
@@ -9,17 +9,6 @@ During this exercise, you will
 
 Make your changes to the code in the `practice` subdirectory (look for `TODO` comments that will guide you to where you should make changes to the code). If you need a hint or want to verify your changes, look at the complete version in the `solution` subdirectory.
 
-## Prerequisite: Ensure that the Microservice Is Running
-
-**Note: If you're using the Gitpod environment to run this exercise you can
-skip this step. An instance of the microservice is already running in your
-environment**
-
-If you haven't already started the microservice in previous exercises, do so in
-a separate terminal. From either the `practice` or `solution` subdirectory for
-this exercise, run `dotnet run --project Web`. The
-microservice code does not change between the practice and solution examples.
-
 ## Part A: Add Logging to the Workflow Code
 
 1. Edit the `TranslationWorkflow.cs` file in the Workflow directory.
@@ -27,7 +16,7 @@ microservice code does not change between the practice and solution examples.
 3. Add a new line after that to log a message at the Info level
    1. It should mention that the Workflow function has been invoked
    2. It should also include the name passed as input
-4. Before each call to Execute Activity, log a message at Debug level
+4. Before each call to Execute Activity, log a message at Information level
    1. It should also include the language code passed as input
 5. Save your changes
 
@@ -38,14 +27,14 @@ microservice code does not change between the practice and solution examples.
 3. Insert a logging statement at the Info level just after this, so you'll know when the Activity is invoked.
    1. Include the term being translated and the language code
 4. Optionally, add log statements at the Error level anywhere that the Activity throws an Exception
-5. Near the bottom of the function, use the Debug level to log the successful translation
+5. Near the bottom of the function, use the Information level to log the successful translation
    1. Include the translated term
 6. Save your changes
 
 ## Part C: Add a Timer to the Workflow
 You will now add a Timer between the two Activity calls in the Workflow Definition, which will make it easier to observe durable execution in the next section.
 
-1. After the statement where `helloMessage` is defined, but before the statement where `byeMessage`is defined, add a new statement that logs the message "Sleeping between translation calls" at the Debug level.
+1. After the statement where `helloMessage` is defined, but before the statement where `byeMessage`is defined, add a new statement that logs the message "Sleeping between translation calls" at the Information level.
 2. Just after the new log statement, use `Workflow.DelayAsync` to set a Timer for 10 seconds
 
 ## Part D: Observe Durable Execution
@@ -57,7 +46,7 @@ Before proceeding, make sure that there are no Workers running for this or any p
 2. In another terminal, start a second Worker by running `dotnet run --project Worker`
 3. In another terminal, start the microserving by running `dotnet run --project Web`
 4. In another terminal, execute the Workflow by running `dotnet run --project Client Tatiana sk` (replace `Tatiana` with your first name) 
-5. Observe the Event History in the Web UI. 
+5. Observe the output in the terminal windows used by each Worker
 6. As soon as you see a log message in one of the Worker terminals indicating that it has started the Timer, press Ctrl-C in that window to kill that Worker process.
 7. Switch to the terminal window for the other Worker process. Within a few seconds, you should observe new output, indicating that it has resumed execution of the Workflow.
 8. Once you see log output indicating that translation was successful, switch back to the terminal window where you started the Workflow. 

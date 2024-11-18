@@ -18,7 +18,7 @@ public class TranslationWorkflow
 
         var activityOptions = new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(45) };
 
-        logger.LogError("Preparing to translate 'Hello', '{LanguageCode}'", input.LanguageCode);
+        logger.LogInformation("Preparing to translate 'Hello', '{LanguageCode}'", input.LanguageCode);
         var helloInput = new TranslationActivityInput("Hello", input.LanguageCode);
 
         var helloResult =
@@ -26,10 +26,10 @@ public class TranslationWorkflow
 
         var helloMessage = $"{helloResult.Translation}, {input.Name}";
 
-        logger.LogError("Sleeping between translation calls");
+        logger.LogInformation("Sleeping between translation calls");
         await Workflow.DelayAsync(TimeSpan.FromSeconds(10));
 
-        logger.LogError("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
+        logger.LogInformation("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
         var goodbyeInput = new TranslationActivityInput("Goodbye", input.LanguageCode);
 
         var byeMessage =

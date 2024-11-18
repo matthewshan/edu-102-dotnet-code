@@ -18,7 +18,7 @@ public class TranslationWorkflow
         // Include the name passed as input.
         var activityOptions = new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(45) };
 
-        // TODO Part A: At the Debug level, log a message stating that the translation will happen now
+        // TODO Part A: At the Information level, log a message stating that the translation will happen now
         // Include the language code passed as input
         var helloInput = new TranslationActivityInput("Hello", input.LanguageCode);
 
@@ -27,10 +27,10 @@ public class TranslationWorkflow
 
         var helloMessage = $"{helloResult.Translation}, {input.Name}";
 
-        // TODO Part C: At the Debug level, log the message: "Sleeping between translation calls"
+        // TODO Part C: At the Information level, log the message: "Sleeping between translation calls"
         // TODO Part C: Use `Workflow.DelayAsync` to set a Timer for 10 seconds.
 
-        // TODO Part A: At the Debug level, log a message stating that the translation will happen now
+        // TODO Part A: At the Information level, log a message stating that the translation will happen now
         // Include the language code passed as input
         var goodbyeInput = new TranslationActivityInput("Goodbye", input.LanguageCode);
 
