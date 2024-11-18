@@ -28,7 +28,7 @@ When you're ready to run the Workflow, follow the steps below.
    `dotnet run --project Web`
 2. In another terminal, start the Worker by running `dotnet run --project Worker`
 3. In another terminal, execute the Workflow by running 
-   `dotnet run --project Pierre fr` (replace `Pierre` with your 
+   `dotnet run --project Client Pierre fr` (replace `Pierre` with your 
    first name), which should display customized greeting and farewell 
    messages in French.
 
