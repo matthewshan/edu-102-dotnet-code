@@ -37,7 +37,7 @@ public class PizzaOrderActivityTests
             PostalCode = "94103",
         };
 
-        var result = await env.RunAsync(() => Activities.GetDistanceAsync(input));  // Changed from GetDistance
+        var result = await env.RunAsync(() => Activities.GetDistanceAsync(input)); 
 
         Assert.Equal(8, result.Kilometers);
     }

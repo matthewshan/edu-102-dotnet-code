@@ -69,8 +69,6 @@ public class PizzaOrderWorkflowTests
 
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
-        // NOTE there is no Mock for the SendBill Activity because it won't be
-        // called, given that the Workflow returns an error due to the distance.
         using var worker = new TemporalWorker(
             env.Client,
             new TemporalWorkerOptions(taskQueueId)
