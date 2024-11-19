@@ -11,7 +11,7 @@ public class WorkflowTests
     [Fact]
     public async Task TestSuccessfulAgeEstimation()
     {
-        await using var env = await WorkflowEnvironment.StartLocalAsync();
+        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
         var activities = new AgeEstimationActivities();
 
@@ -28,7 +28,7 @@ public class WorkflowTests
                 new WorkflowOptions
                 {
                     Id = $"workflow-{Guid.NewGuid()}",
-                    TaskQueue = worker.Options.TaskQueue!
+                    TaskQueue = "test-task-queue"
                 });
 
             Assert.Equal("Betty has an estimated age of 77", result);

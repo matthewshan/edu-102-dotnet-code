@@ -12,7 +12,7 @@ public class WorkflowMockTests
     [Fact]
     public async Task TestWithMockActivity()
     {
-        await using var env = await WorkflowEnvironment.StartLocalAsync();
+        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
         [Activity]
         static Task<int> MockRetrieveEstimate(string name)
@@ -30,12 +30,7 @@ public class WorkflowMockTests
         {
             var result = await env.Client.ExecuteWorkflowAsync(
                 (AgeEstimationWorkflow wf) => wf.RunAsync("Stanislav"),
-                new WorkflowOptions
-                {
-                    Id = $"workflow-{Guid.NewGuid()}",
-                    TaskQueue = worker.Options.TaskQueue!
-                });
-
+                new(id: $"workflow-{Guid.NewGuid()}", taskQueue: worker.Options.TaskQueue!));
             Assert.Equal("Stanislav has an estimated age of 68", result);
         });
     }
