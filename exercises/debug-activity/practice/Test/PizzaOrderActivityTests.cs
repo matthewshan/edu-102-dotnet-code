@@ -58,23 +58,7 @@ public class PizzaOrderActivityTests
         Assert.Equal(2600, result.Amount);
     }
 
-    [Fact]
-    public async Task TestSendBillAppliesDiscountAsync()
-    {
-        var env = new ActivityEnvironment();
-        var input = new Bill
-        {
-            CustomerId = 12983,
-            OrderNumber = "PI314",
-            Description = "5 large cheese pizzas",
-            Amount = 6500, // amount qualifies for discount
-        };
-
-        var result = await env.RunAsync(() => Activities.SendBillAsync(input));
-
-        Assert.Equal("PI314", result.OrderNumber);
-        Assert.Equal(6000, result.Amount);
-    }
+    // TODO: Write the TestSendBillAppliesDiscountAsync Test
 
     [Fact]
     public async Task TestSendBillFailsWithNegativeAmountAsync()

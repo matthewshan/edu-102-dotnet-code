@@ -91,17 +91,17 @@ Although the Workflow _should_ complete within a few seconds, you will probably 
 
 You should have observed that the `SendBill` Activity is failing with an error that indicates it was supplied with an invalid (negative) charge amount. Click the **Pending Activities** tab near the top of the screen to display information about the failure and retries in a more convenient layout.
 
-1. Run `dotnet test Test/Test.csproj`. You should observe that all tests pass.
+1. Run `dotnet test` from within the `Test` subdirectory. You should observe that all tests pass.
    - Unfortunately, the co-worker who implemented the code to apply a discount did not write a test case for it. Deploying the untested code is what led to this failure, but writing a test now will help you to verify the fix.
 2. Open the [Test/PizzaOrderActivityTests.cs](./practice/Test/PizzaOrderActivityTests.cs) file in the editor
-3. Add a new test by copying the existing `TestSendBillTypicalOrder`function and renaming the new function as `TestSendBillAppliesDiscount`, and then make the following changes to it:
+3. Add a new test by copying the existing `TestSendBillTypicalOrderAsync` function and renaming the new function as `TestSendBillAppliesDiscountAsync`, and then make the following changes to it:
    - Change the `Description` to `5 large cheese pizzas`
    - Change the `Amount` to `6500` ($65)
    - Change the comment next to the `Amount` field to say `amount qualifies for discount`
    - Change the expected price in the `assert.Equal` statement to `6000`, which is the $65 amount minus the $5 discount.
 4. Save the changes and close the editor
 5. Run the tests. Since you have not yet fixed the bug, the test will fail.
-6. Open the [Application/Activities.cs](./practice/Application/Activities.cs) file in the editor and find where the `SendBill` Activity is defined.
+6. Open the [Activities.cs](./practice/Workflow/Activities.cs) file in the editor and find where the `SendBill` Activity is defined.
 7. Examine the code where the discount is applied. Once you spot the bug, fix it.
 8. Save your changes and close the editor
 
@@ -110,7 +110,7 @@ Make sure the bug is fixed before continuing to the next part. Since you wrote a
 ## Part E: Deploying and Verifying the Fix
 
 1. Press Ctrl-C in both terminal windows used to run the Workers. Since Workers cache the code, the changes won't take effect until they have been restarted. Do not press Ctrl-C in the terminal used to start the Workflow.
-2. Start both Workers by running `dotnet run --project ./exercises/debugactivity/practice/Worker/Worker.csproj` in their respective terminals.
+2. Start both Workers by running `dotnet run --project Worker` in their respective terminals.
 3. Click the **History** tab near the top of the detail page in the Web UI
 4. Click the toggle button labeled **Auto refresh** near the upper-right portion of the screen. This will refresh the page every 15 seconds.
 5. The Maximum Interval for the Retry Policy used to execute this Activity is set to 10 seconds, so you should observe that the Workflow Execution status soon changes from **Running** to **Completed**.
