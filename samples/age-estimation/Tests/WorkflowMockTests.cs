@@ -1,4 +1,5 @@
 using Xunit;
+using Microsoft.Extensions.Logging;
 using Temporalio.Testing;
 using Temporalio.Client;
 using Temporalio.Worker;
@@ -10,15 +11,19 @@ namespace AgeEstimation.Tests;
 public class WorkflowMockTests
 {
     [Fact]
-    public async Task TestWithMockActivity()
+    async Task TestWithMockActivity()
     {
-        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
-
-        [Activity]
-        static Task<int> MockRetrieveEstimate(string name)
+        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync(new()
         {
-            return Task.FromResult(name == "Stanislav" ? 68 : 0);
-        }
+            LoggerFactory = LoggerFactory.Create(builder =>
+                builder.
+                    AddSimpleConsole(options => options.TimestampFormat = "[HH:mm:ss] ").
+                    SetMinimumLevel(LogLevel.Information)),
+        });
+
+        [Activity("RetrieveEstimate")]
+        static Task<int> MockRetrieveEstimate(string name) =>
+            Task.FromResult(name == "Stanislav" ? 68 : 0);
 
         using var worker = new TemporalWorker(
             env.Client,
@@ -26,11 +31,17 @@ public class WorkflowMockTests
                 .AddActivity(MockRetrieveEstimate)
                 .AddWorkflow<AgeEstimationWorkflow>());
 
+
         await worker.ExecuteAsync(async () =>
         {
             var result = await env.Client.ExecuteWorkflowAsync(
                 (AgeEstimationWorkflow wf) => wf.RunAsync("Stanislav"),
-                new(id: $"workflow-{Guid.NewGuid()}", taskQueue: worker.Options.TaskQueue!));
+                new WorkflowOptions
+                {
+                    Id = $"workflow-{Guid.NewGuid()}",
+                    TaskQueue = "test-task-queue"
+                });
+
             Assert.Equal("Stanislav has an estimated age of 68", result);
         });
     }
