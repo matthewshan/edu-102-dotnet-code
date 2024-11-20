@@ -21,13 +21,15 @@ public class DurableExecutionActivities
         var term = Uri.EscapeDataString(input.Term.ToLower());
         var url = $"http://localhost:9998/translate?lang={lang}&term={term}";
         var response = await Client.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new HttpRequestException($"HTTP Error {response.StatusCode}");
+            logger.LogError("Translation failed. Status: {Status}, Message: {Message}",
+    response.StatusCode, content);
+            throw new HttpRequestException($"HTTP Error {response.StatusCode}: {content}");
         }
 
-        var content = await response.Content.ReadAsStringAsync();
         // TODO Part B: At the Information level, include a logging statement that lets the user know the translation is successful
         // and include the translated content.
 
