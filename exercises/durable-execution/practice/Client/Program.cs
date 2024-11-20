@@ -21,4 +21,4 @@ var result = await client.ExecuteWorkflowAsync(
     (TranslationWorkflow wf) => wf.RunAsync(input),
     options);
 
-Console.WriteLine($"{{hello: \"{result.HelloMessage}\", goodbye: \"{result.GoodbyeMessage}\"}}");
+Console.WriteLine($"{{ helloMessage: '{result.HelloMessage}', goodbyeMessage: '{result.GoodbyeMessage}' }}");

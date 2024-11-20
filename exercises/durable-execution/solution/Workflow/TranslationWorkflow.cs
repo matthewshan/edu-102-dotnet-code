@@ -19,24 +19,22 @@ public class TranslationWorkflow
         var activityOptions = new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(45) };
 
         logger.LogInformation("Preparing to translate 'Hello', '{LanguageCode}'", input.LanguageCode);
-        var helloInput = new TranslationActivityInput("Hello", input.LanguageCode);
-
-        var helloResult =
-            await Workflow.ExecuteActivityAsync((DurableExecutionActivities act) => act.TranslateTermAsync(helloInput), activityOptions);
-
-        var helloMessage = $"{helloResult.Translation}, {input.Name}";
+        var helloResult = await Workflow.ExecuteActivityAsync(
+           (DurableExecutionActivities act) => act.TranslateTermAsync(
+               new TranslationActivityInput("hello", input.LanguageCode.ToLower())),
+           activityOptions);
 
         logger.LogInformation("Sleeping between translation calls");
         await Workflow.DelayAsync(TimeSpan.FromSeconds(10));
 
         logger.LogInformation("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
-        var goodbyeInput = new TranslationActivityInput("Goodbye", input.LanguageCode);
+        var goodbyeResult = await Workflow.ExecuteActivityAsync(
+            (DurableExecutionActivities act) => act.TranslateTermAsync(
+                new TranslationActivityInput("goodbye", input.LanguageCode.ToLower())),
+            activityOptions);
 
-        var byeMessage =
-            await Workflow.ExecuteActivityAsync((DurableExecutionActivities act) => act.TranslateTermAsync(goodbyeInput), activityOptions);
-
-        var goodbyeMessage = $"{byeMessage.Translation}, {input.Name}";
-
-        return new TranslationWorkflowOutput(helloMessage, goodbyeMessage);
+        return new TranslationWorkflowOutput(
+            $"{helloResult.Translation}, {input.Name}",
+            $"{goodbyeResult.Translation}, {input.Name}");
     }
 }

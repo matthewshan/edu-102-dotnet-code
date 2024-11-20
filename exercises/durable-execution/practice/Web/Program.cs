@@ -1,3 +1,19 @@
+// Call this via HTTP GET with a URL like:
+//     http://localhost:9998/translate?lang=fr&term=hello
+//
+// This will return a JSON-encoded map, with a single key:
+// translation (containing the translated term). It currently
+// supports the following languages
+//
+//    de: German
+//    es: Spanish
+//    fr: French
+//    lv: Latvian
+//    mi: Maori
+//    sk: Slovak
+//    tr: Turkish
+//    zu: Zulu
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
