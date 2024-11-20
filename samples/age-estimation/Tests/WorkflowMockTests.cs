@@ -31,7 +31,6 @@ public class WorkflowMockTests
                 .AddActivity(MockRetrieveEstimate)
                 .AddWorkflow<AgeEstimationWorkflow>());
 
-
         await worker.ExecuteAsync(async () =>
         {
             var result = await env.Client.ExecuteWorkflowAsync(
