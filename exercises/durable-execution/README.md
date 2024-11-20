@@ -1,19 +1,30 @@
 # Exercise 1: Observing Durable Execution
+
 During this exercise, you will
 
-* Create Workflow and Activity loggers 
-* Add logging statements to the code
-* Add a Timer to the Workflow Definition
-* Launch two Workers and run the Workflow
-* Kill one of the Workers during Workflow Execution and observe that the remaining Worker completes the execution
+- Create Workflow and Activity loggers
+- Add logging statements to the code
+- Add a Timer to the Workflow Definition
+- Launch two Workers and run the Workflow
+- Kill one of the Workers during Workflow Execution and observe that the remaining Worker completes the execution
 
 Make your changes to the code in the `practice` subdirectory (look for `TODO` comments that will guide you to where you should make changes to the code). If you need a hint or want to verify your changes, look at the complete version in the `solution` subdirectory.
 
 ## Part A: Add Logging to the Workflow Code
 
 1. In the `Workflow` directory, edit the `TranslationWorkflow.cs` file
-2. Define a Workflow logger at the top of the Workflow function
-3. Add a new line after that to log a message at the Info level
+2. Define a Workflow logger at the top of the Workflow function. The syntax would be:
+
+```csharp
+var logger = Workflow.Logger;
+```
+
+3. Add a new line after that to log a message at the Info level like:
+
+````csharp
+   logger.LogInformation("Hello, my name is", input.Name);
+```
+
    1. It should mention that the Workflow function has been invoked
    2. It should also include the name passed as input
 4. Before each call to Execute Activity, log a message at Information level
@@ -45,16 +56,17 @@ Before proceeding, make sure that there are no Workers running for this or any p
 1. In a terminal, start the Worker by running `dotnet run --project Worker`
 2. In another terminal, start a second Worker by running `dotnet run --project Worker`
 3. In another terminal, start the microservice by running `dotnet run --project Web`
-4. In another terminal, execute the Workflow by running `dotnet run --project Client Tatiana sk` (replace `Tatiana` with your first name) 
+4. In another terminal, execute the Workflow by running `dotnet run --project Client Tatiana sk` (replace `Tatiana` with your first name)
 5. Observe the output in the terminal windows used by each Worker
 6. As soon as you see a log message in one of the Worker terminals indicating that it has started the Timer, press Ctrl-C in that window to kill that Worker process.
 7. Switch to the terminal window for the other Worker process. Within a few seconds, you should observe new output, indicating that it has resumed execution of the Workflow.
-8. Once you see log output indicating that translation was successful, switch back to the terminal window where you started the Workflow. 
+8. Once you see log output indicating that translation was successful, switch back to the terminal window where you started the Workflow.
 
 After the final step, you should see the translated Hello and Goodbye messages, which confirms that Workflow Execution completed successfully despite the original Worker being killed.
 
 Since you added logging code to the Workflow and Activity code, take a moment to look at what you see in the terminal windows for each Worker and think about what took place. You may also find it helpful to look at this Workflow Execution in the Web UI.
 
-The microservice for this exercise logs each successful translation, and if you look at its terminal window, you will see that the service only translated Hello (the first Activity) once, even though the Worker was killed after this translation took place. In other words, Temporal did not re-execute the completed Activity when it restored the state of the Workflow Execution. 
+The microservice for this exercise logs each successful translation, and if you look at its terminal window, you will see that the service only translated Hello (the first Activity) once, even though the Worker was killed after this translation took place. In other words, Temporal did not re-execute the completed Activity when it restored the state of the Workflow Execution.
 
 ### This is the end of the exercise.
+````
