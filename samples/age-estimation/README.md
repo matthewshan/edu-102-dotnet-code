@@ -14,7 +14,7 @@ that you can use to run the Workflow (pass a name to use as input
 on the command line when invoking it). 
 
 ```
-doetnet run --project Client Betty
+dotnet run --project Client Betty
 ```
 
 This will output a message with the name and estimated age:
@@ -25,5 +25,8 @@ Betty has an estimated age of 77
 
 This queries an external API which randomizes the age so the output might not be exactly the same.
 
-Additionally, this example provides tests for the Workflow 
-and Activity code.
+Additionally, this example provides tests for the Workflow and Activity code. To run the tests, navigate into the `Tests` directory and enter:
+
+```
+dotnet test
+```
