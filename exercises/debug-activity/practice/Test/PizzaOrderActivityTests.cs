@@ -59,7 +59,6 @@ public class PizzaOrderActivityTests
     }
 
     // TODO: Write the TestSendBillAppliesDiscountAsync Test
-
     [Fact]
     public async Task TestSendBillFailsWithNegativeAmountAsync()
     {
