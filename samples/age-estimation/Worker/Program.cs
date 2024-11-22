@@ -13,7 +13,8 @@ Console.CancelKeyPress += (_, eventArgs) =>
     eventArgs.Cancel = true;
 };
 
-var activities = new AgeEstimationActivities();
+using var httpClient = new HttpClient();
+var activities = new AgeEstimationActivities(httpClient);
 
 // Create worker
 using var worker = new TemporalWorker(
