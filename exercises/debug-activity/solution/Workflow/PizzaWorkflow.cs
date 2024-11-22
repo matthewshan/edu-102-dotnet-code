@@ -17,7 +17,7 @@ public class PizzaWorkflow
 
         var totalPrice = order.Items.Sum(pizza => pizza.Price);
 
-        var distance = await Workflow.ExecuteActivityAsync(() => Activities.GetDistanceAsync(order.Address), options);
+        var distance = await Workflow.ExecuteActivityAsync((Activities act) => act.GetDistanceAsync(order.Address), options);
 
         if (order.IsDelivery && distance.Kilometers > 25)
         {
@@ -35,7 +35,7 @@ public class PizzaWorkflow
             Description = "Pizza",
         };
 
-        var confirmation = await Workflow.ExecuteActivityAsync(() => Activities.SendBillAsync(bill), options);
+        var confirmation = await Workflow.ExecuteActivityAsync((Activities act) => act.SendBillAsync(bill), options);
 
         return confirmation;
     }

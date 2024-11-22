@@ -3,10 +3,10 @@ using Temporalio.Activities;
 
 namespace TemporalioDebugActivity;
 
-public static class Activities
+public class Activities
 {
     [Activity]
-    public static Task<Distance> GetDistanceAsync(Address address)
+    public Task<Distance> GetDistanceAsync(Address address)
     {
         var logger = ActivityExecutionContext.Current.Logger;
         logger.LogInformation("GetDistance invoked; determining distance to customer address");
@@ -31,7 +31,7 @@ public static class Activities
     }
 
     [Activity]
-    public static Task<OrderConfirmation> SendBillAsync(Bill bill)
+    public Task<OrderConfirmation> SendBillAsync(Bill bill)
     {
         var logger = ActivityExecutionContext.Current.Logger;
         logger.LogInformation("SendBill invoked. Customer: {Customer}, Amount: {Amount}", bill.CustomerId, bill.Amount);

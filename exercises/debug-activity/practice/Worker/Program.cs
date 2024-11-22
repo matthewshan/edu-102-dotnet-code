@@ -14,12 +14,13 @@ Console.CancelKeyPress += (_, eventArgs) =>
     eventArgs.Cancel = true;
 };
 
+var activities = new Activities();
+
 // Create worker
 using var worker = new TemporalWorker(
     client,
     new TemporalWorkerOptions(WorkflowConstants.TaskQueueName)
-        .AddActivity(Activities.GetDistanceAsync)
-        .AddActivity(Activities.SendBillAsync)
+        .AddAllActivities(activities)
         .AddWorkflow<PizzaWorkflow>());
 
 // Run worker until cancelled

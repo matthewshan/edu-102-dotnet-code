@@ -11,6 +11,7 @@ public class PizzaOrderActivityTests
     public async Task TestGetDistanceTwoLineAddressAsync()
     {
         var env = new ActivityEnvironment();
+        var activities = new Activities();
         var input = new Address
         {
             Line1 = "701 Mission Street",
@@ -20,7 +21,7 @@ public class PizzaOrderActivityTests
             PostalCode = "94103",
         };
 
-        var result = await env.RunAsync(() => Activities.GetDistanceAsync(input));
+        var result = await env.RunAsync(() => activities.GetDistanceAsync(input));
 
         Assert.Equal(20, result.Kilometers);
     }
@@ -29,6 +30,7 @@ public class PizzaOrderActivityTests
     public async Task TestGetDistanceOneLineAddressAsync()
     {
         var env = new ActivityEnvironment();
+        var activities = new Activities();
         var input = new Address
         {
             Line1 = "917 Delores Street",
@@ -36,7 +38,7 @@ public class PizzaOrderActivityTests
             State = "CA",
             PostalCode = "94103",
         };
-        var result = await env.RunAsync(() => Activities.GetDistanceAsync(input));
+        var result = await env.RunAsync(() => activities.GetDistanceAsync(input));
         Assert.Equal(8, result.Kilometers);
     }
 
@@ -44,6 +46,7 @@ public class PizzaOrderActivityTests
     public async Task TestSendBillTypicalOrderAsync()
     {
         var env = new ActivityEnvironment();
+        var activities = new Activities();
         var input = new Bill
         {
             CustomerId = 12983,
@@ -52,7 +55,7 @@ public class PizzaOrderActivityTests
             Amount = 2600, // amount does not qualify for discount
         };
 
-        var result = await env.RunAsync(() => Activities.SendBillAsync(input));
+        var result = await env.RunAsync(() => activities.SendBillAsync(input));
 
         Assert.Equal("PI314", result.OrderNumber);
         Assert.Equal(2600, result.Amount);
@@ -62,6 +65,7 @@ public class PizzaOrderActivityTests
     public async Task TestSendBillAppliesDiscountAsync()
     {
         var env = new ActivityEnvironment();
+        var activities = new Activities();
         var input = new Bill
         {
             CustomerId = 12983,
@@ -70,8 +74,7 @@ public class PizzaOrderActivityTests
             Amount = 6500, // amount qualifies for discount
         };
 
-        var result = await env.RunAsync(() => Activities.SendBillAsync(input));
-
+        var result = await env.RunAsync(() => activities.SendBillAsync(input));
         Assert.Equal("PI314", result.OrderNumber);
         Assert.Equal(6000, result.Amount);
     }
@@ -80,7 +83,7 @@ public class PizzaOrderActivityTests
     public async Task TestSendBillFailsWithNegativeAmountAsync()
     {
         var env = new ActivityEnvironment();
-
+        var activities = new Activities();
         var input = new Bill
         {
             CustomerId = 21974,
@@ -89,8 +92,7 @@ public class PizzaOrderActivityTests
             Amount = -1000,
         };
 
-        async Task<OrderConfirmation> ActAsync() => await env.RunAsync(() => Activities.SendBillAsync(input));
-
+        async Task<OrderConfirmation> ActAsync() => await env.RunAsync(() => activities.SendBillAsync(input));
         var exception = await Assert.ThrowsAsync<ArgumentException>(ActAsync);
         Assert.Equal("invalid charge amount: -1000 (must be above zero)", exception.Message);
     }
