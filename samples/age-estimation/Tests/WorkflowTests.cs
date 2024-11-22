@@ -13,7 +13,8 @@ public class WorkflowTests
     {
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
-        var activities = new AgeEstimationActivities();
+        using var httpClient = new HttpClient();
+        var activities = new AgeEstimationActivities(httpClient);
 
         using var worker = new TemporalWorker(
             env.Client,
