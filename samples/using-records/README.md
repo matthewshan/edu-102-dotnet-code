@@ -1,8 +1,8 @@
-# Sample: Using Structs for Data
+# Sample: Using Records for Data
 This sample demonstrates how to:
 
-* Define structs to represent input and output of an Activity Definition
-* Use those structs in the Activity and Workflow Definitions
+* Define records to represent input and output of an Activity Definition
+* Use those records in the Activity and Workflow Definitions
 
 ## Review the Code
 This sample introduces an improved version of the translation 
