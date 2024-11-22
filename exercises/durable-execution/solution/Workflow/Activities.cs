@@ -9,7 +9,9 @@ public record TranslationActivityOutput(string Translation);
 
 public class DurableExecutionActivities
 {
-    private static readonly HttpClient Client = new();
+    private readonly HttpClient client;
+
+    public DurableExecutionActivities(HttpClient client) => this.client = client;
 
     [Activity]
     public async Task<TranslationActivityOutput> TranslateTermAsync(TranslationActivityInput input)
@@ -20,7 +22,7 @@ public class DurableExecutionActivities
         var lang = Uri.EscapeDataString(input.LanguageCode);
         var term = Uri.EscapeDataString(input.Term.ToLower());
         var url = $"http://localhost:9998/translate?lang={lang}&term={term}";
-        var response = await Client.GetAsync(url);
+        var response = await client.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)

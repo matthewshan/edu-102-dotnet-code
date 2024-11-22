@@ -20,7 +20,8 @@ Console.CancelKeyPress += (_, eventArgs) =>
     eventArgs.Cancel = true;
 };
 
-var activities = new DurableExecutionActivities();
+using var httpClient = new HttpClient();
+var activities = new DurableExecutionActivities(httpClient);
 
 // Create worker
 using var worker = new TemporalWorker(
