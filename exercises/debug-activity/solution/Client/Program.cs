@@ -21,7 +21,14 @@ var result = await client.ExecuteWorkflowAsync(
         TaskQueue = WorkflowConstants.TaskQueueName,
     });
 
-Console.WriteLine($"Workflow result: {result}");
+Console.WriteLine($"""
+Workflow result:
+  Order Number: {result.OrderNumber}
+  Status: {result.Status}
+  Confirmation Number: {result.ConfirmationNumber}
+  Billing Timestamp: {DateTimeOffset.FromUnixTimeSeconds(result.BillingTimestamp).UtcDateTime}
+  Amount: ${result.Amount / 100.0:F2}
+""");
 
 PizzaOrder CreatePizzaOrder()
 {
