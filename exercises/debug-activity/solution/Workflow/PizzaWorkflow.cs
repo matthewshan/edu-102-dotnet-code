@@ -12,7 +12,7 @@ public class PizzaWorkflow
         var options = new ActivityOptions
         {
             StartToCloseTimeout = TimeSpan.FromSeconds(5),
-            RetryPolicy = new Temporalio.Common.RetryPolicy { MaximumInterval = TimeSpan.FromSeconds(10) },
+            RetryPolicy = new() { MaximumInterval = TimeSpan.FromSeconds(10) },
         };
 
         var totalPrice = order.Items.Sum(pizza => pizza.Price);
