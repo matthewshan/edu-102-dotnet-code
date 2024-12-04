@@ -8,7 +8,7 @@ namespace Test;
 
 public class TranslationWorkflowTests
 {
-    private readonly HttpClient httpClient = new HttpClient();
+    private static readonly HttpClient Client = new HttpClient();
 
     [Fact]
     public async Task TestSuccessfulCompleteFrenchTranslationAsync()
@@ -16,7 +16,7 @@ public class TranslationWorkflowTests
         var taskQueueId = Guid.NewGuid().ToString();
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
-        var activities = new DurableExecutionActivities(httpClient);
+        var activities = new DurableExecutionActivities(Client);
 
         using var worker = new TemporalWorker(
             env.Client,
@@ -31,8 +31,8 @@ public class TranslationWorkflowTests
                 (TranslationWorkflow wf) => wf.RunAsync(input),
                 new(id: $"wf-{Guid.NewGuid()}", taskQueue: taskQueueId));
 
-            Assert.Equal("bonjour, Pierre".ToLower(), result.HelloMessage.ToLower());
-            Assert.Equal("au revoir, Pierre".ToLower(), result.GoodbyeMessage.ToLower());
+            Assert.Equal("bonjour, Pierre", result.HelloMessage);
+            Assert.Equal("au revoir, Pierre", result.GoodbyeMessage);
         });
     }
 }

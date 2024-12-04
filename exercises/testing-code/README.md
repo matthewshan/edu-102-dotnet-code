@@ -18,9 +18,19 @@ This test verifies that the Activity correctly translates the term "Hello" to Ge
 
 Since the test runs the Activity, which in turn calls the microservice to do the translation, you'll begin by starting that.
 
-1. Open a new terminal and run `dotnet run --project ./exercises/testing-code/practice/Web/Web.csproj`
+1. Open a new terminal and run: 
+`cd exercises/testing-code/practice/Web`
+cd exercises/testing-code/solution/Web
 
-2. Run the `dotnet test ./exercises/testing-code/practice/Tests/Tests.csproj` command to execute the provided test
+and 
+`dotnet run`
+
+2. Open another terminal and run the test: 
+`cd exercises/testing-code/practice/Tests`
+and 
+`dotnet test`
+
+cd exercises/testing-code/solution/Tests
 
 
 ## Part B: Write and Run Another Test for the Activity

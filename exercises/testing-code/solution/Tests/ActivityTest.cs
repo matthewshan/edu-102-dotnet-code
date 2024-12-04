@@ -6,7 +6,7 @@ namespace Test;
 
 public class TranslationActivityTests
 {
-    private readonly HttpClient httpClient = new HttpClient();
+    private static readonly HttpClient Client = new HttpClient();
 
     [Fact]
     public async Task TestSuccessfulTranslateActivityHelloGermanAsync()
@@ -14,10 +14,10 @@ public class TranslationActivityTests
         var env = new ActivityEnvironment();
         var input = new TranslationActivityInput("Hello", "de");
 
-        var activities = new DurableExecutionActivities(httpClient);
+        var activities = new DurableExecutionActivities(Client);
         var result = await env.RunAsync(() => activities.TranslateTermAsync(input));
 
-        Assert.Equal("Hallo".ToLower(), result.Translation.ToLower());
+        Assert.Equal("hallo", result.Translation);
     }
 
     [Fact]
@@ -26,10 +26,10 @@ public class TranslationActivityTests
         var env = new ActivityEnvironment();
         var input = new TranslationActivityInput("Goodbye", "lv");
 
-        var activities = new DurableExecutionActivities(httpClient);
+        var activities = new DurableExecutionActivities(Client);
         var result = await env.RunAsync(() => activities.TranslateTermAsync(input));
 
-        Assert.Equal("Ardievu".ToLower(), result.Translation.ToLower());
+        Assert.Equal("ardievu", result.Translation);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class TranslationActivityTests
         var env = new ActivityEnvironment();
         var input = new TranslationActivityInput("Hello", "xq");
 
-        var activities = new DurableExecutionActivities(httpClient);
+        var activities = new DurableExecutionActivities(Client);
 
         Task<TranslationActivityOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
 
