@@ -12,24 +12,22 @@ public class TranslationWorkflow
     [WorkflowRun]
     public async Task<TranslationWorkflowOutput> RunAsync(TranslationWorkflowInput input)
     {
-        // TODO Part A: Define the Workflow logger here
+        var logger = Workflow.Logger;
 
-        // TODO Part A: At the Info level, log that the Workflow function has been invoked.
-        // Include the name passed as input.
+        logger.LogInformation("TranslationWorkflow invoked with name {Name}", input.Name);
+
         var activityOptions = new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(45) };
 
-        // TODO Part A: At the Information level, log a message stating that the translation will happen now
-        // Include the language code passed as input
+        logger.LogInformation("Preparing to translate 'Hello', '{LanguageCode}'", input.LanguageCode);
         var helloResult = await Workflow.ExecuteActivityAsync(
-            (DurableExecutionActivities act) => act.TranslateTermAsync(
-                new TranslationActivityInput("hello", input.LanguageCode.ToLower())),
-            activityOptions);
+           (DurableExecutionActivities act) => act.TranslateTermAsync(
+               new TranslationActivityInput("hello", input.LanguageCode.ToLower())),
+           activityOptions);
 
-        // TODO Part C: At the Information level, log the message: "Sleeping between translation calls"
-        // TODO Part C: Use `Workflow.DelayAsync` to set a Timer for 10 seconds.
+        logger.LogInformation("Sleeping between translation calls");
+        await Workflow.DelayAsync(TimeSpan.FromSeconds(10));
 
-        // TODO Part A: At the Information level, log a message stating that the translation will happen now
-        // Include the language code passed as input
+        logger.LogInformation("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
         var goodbyeResult = await Workflow.ExecuteActivityAsync(
             (DurableExecutionActivities act) => act.TranslateTermAsync(
                 new TranslationActivityInput("goodbye", input.LanguageCode.ToLower())),

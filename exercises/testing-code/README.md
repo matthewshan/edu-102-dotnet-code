@@ -19,18 +19,12 @@ This test verifies that the Activity correctly translates the term "Hello" to Ge
 Since the test runs the Activity, which in turn calls the microservice to do the translation, you'll begin by starting that.
 
 1. Open a new terminal and run: 
-`cd exercises/testing-code/practice/Web`
-cd exercises/testing-code/solution/Web
-
-and 
-`dotnet run`
+`cd exercises/testing-code/practice/Web` and `dotnet run`
 
 2. Open another terminal and run the test: 
 `cd exercises/testing-code/practice/Tests`
 and 
 `dotnet test`
-
-cd exercises/testing-code/solution/Tests
 
 
 ## Part B: Write and Run Another Test for the Activity
@@ -49,28 +43,44 @@ In addition to verifying that your code behaves correctly when used as you inten
 
 Take a moment to study this code, and then continue with the following steps:
 
+```
+public async Task TestFailedTranslateActivityBadLanguageCodeAsync()
+    {
+        var env = new ActivityEnvironment();
+        var input = new TranslationActivityInput("Hello", "xq");
+
+        var activities = new DurableExecutionActivities(Client);
+
+        Task<TranslationActivityOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
+
+        var exception = await Assert.ThrowsAsync<HttpRequestException>(ActAsync);
+        Assert.Equal("HTTP Error BadRequest: \"Unsupported language code: xq\"", exception.Message);
+    }
+```
+
 1. Copy the entire `TestFailedTranslateActivityBadLanguageCode` function provided above and paste it at the bottom of the [Tests/ActivityTest.cs](./practice/Tests/ActivityTest.cs) file
 2. Save the changes
-3. Run `dotnet test ./exercises/testing-code/practice/Tests/Tests.csproj` again to run this new test, in addition to the others
+3. Run `cd exercises/testing-code/practice/Tests`
+and `dotnet test` again to run this new test, in addition to the others
 
 ## Part D: Test a Workflow Definition
 
 1. Edit the [Tests/WorkflowTest.cs](./practice/Tests/WorkflowTest.cs) file
 2. Remove the Skip parameter from the Fact attribute to ensure the test runs.
 3. Add assertions for the following conditions
-   - The Workflow Execution has completed
-   - The `HelloMessage` field in the result is `Bonjour, Pierre`
-   - The `GoodbyeMessage` field in the result is `Au revoir, Pierre`
+   - The `HelloMessage` field in the result is `bonjour, Pierre`
+   - The `GoodbyeMessage` field in the result is `au revoir, Pierre`
 4. Save your changes
-5. Run `dotnet test ./exercises/testing-code/practice/Tests/Tests.csproj` again to run this new test. This will fail, due to a bug in the Workflow Definition.
+5. Run `cd exercises/testing-code/practice/Tests`
+and `dotnet test` again to run this new test. This will fail, due to a bug in the Workflow Definition.
 6. Find and fix the bug in the Workflow Definition
-7. Run the `dotnet test ./exercises/testing-code/practice/Tests/Tests.csproj` command again to verify that you fixed the bug
+7. Run the `dotnet test` command again to verify that you fixed the bug
 
 There are two things to note about this test.
 
 First, the test completes in under a second, even though the Workflow Definition contains a `DelayAsync` call that adds a 10-second delay to the Workflow Execution. This is because of the time-skipping feature provided by the test environment.
 
-Second, calls to `AddActivity` near the top of the test indicate that the Activity Definitions are executed as part of this Workflow test. As you learned, you can test your Workflow Definition in isolation from the Activity implementations by using mocks. The optional exercise that follows provides an opportunity to try this for yourself.
+Second, calls to `AddActivity` indicate that the Activity Definitions are executed as part of this Workflow test. As you learned, you can test your Workflow Definition in isolation from the Activity implementations by using mocks. The optional exercise that follows provides an opportunity to try this for yourself.
 
 ## Part E (Optional) Using Mock Activities in a Workflow Test
 

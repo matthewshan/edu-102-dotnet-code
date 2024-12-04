@@ -10,7 +10,7 @@ public class TranslationWorkflowTests
 {
     private static readonly HttpClient Client = new HttpClient();
 
-    [Fact]
+    [Fact(Skip = "Test temporarily ignored | remove this Skip for Part D")]
     public async Task TestSuccessfulCompleteFrenchTranslationAsync()
     {
         var taskQueueId = Guid.NewGuid().ToString();
@@ -31,8 +31,10 @@ public class TranslationWorkflowTests
                 (TranslationWorkflow wf) => wf.RunAsync(input),
                 new(id: $"wf-{Guid.NewGuid()}", taskQueue: taskQueueId));
 
-            Assert.Equal("bonjour, Pierre", result.HelloMessage);
-            Assert.Equal("au revoir, Pierre", result.GoodbyeMessage);
+            // TODO: Assert that the HelloMessage field in the
+            //       result is: bonjour, Pierre
+            // TODO: Assert that the GoodbyeMessage field in the
+            //       result is: au revoir, Pierre
         });
     }
 }

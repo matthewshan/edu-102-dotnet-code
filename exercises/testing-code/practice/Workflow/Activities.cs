@@ -16,9 +16,9 @@ public class DurableExecutionActivities
     [Activity]
     public async Task<TranslationActivityOutput> TranslateTermAsync(TranslationActivityInput input)
     {
-        // TODO Part B: Define an Activity logger  
-        // TODO Part B: At the Information level, include a logging statement that lets the user know which term is being translated
-        // As well as which language
+        var logger = ActivityExecutionContext.Current.Logger;
+        logger.LogInformation("Translating term {Term} to {LanguageCode}", input.Term, input.LanguageCode);
+
         var lang = Uri.EscapeDataString(input.LanguageCode);
         var term = Uri.EscapeDataString(input.Term.ToLower());
         var url = $"http://localhost:9998/translate?lang={lang}&term={term}";
@@ -31,8 +31,7 @@ public class DurableExecutionActivities
             throw new HttpRequestException($"HTTP Error {response.StatusCode}: {content}");
         }
 
-        // TODO Part B: At the Information level, include a logging statement that lets the user know the translation is successful
-        // and include the translated content.
+        logger.LogInformation("Translation successful. Translation: {Translation}", content);
         var jsonResponse = JsonSerializer.Deserialize<JsonElement>(content);
         var translation = jsonResponse.GetProperty("translation").GetString() ?? string.Empty;
         return new TranslationActivityOutput(translation);
