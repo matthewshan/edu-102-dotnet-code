@@ -1,8 +1,5 @@
-namespace TemporalioDebugActivity;
+namespace Temporalio.DebugActivity.Workflow.Models;
 
-public class Pizza
-{
-    required public string Description { get; set; }
-
-    required public int Price { get; set; }
-}
+public record Pizza(
+    string Description,
+    int Price);

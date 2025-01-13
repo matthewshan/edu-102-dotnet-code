@@ -49,7 +49,7 @@ public class Activities
         // reject invalid amounts before calling the payment processor
         if (chargeAmount < 0)
         {
-            throw new ArgumentException($"invalid charge amount: {chargeAmount} (must be above zero)");
+            throw new ArgumentException($"INVALID CHARGE AMOUNT: {chargeAmount} (MUST BE ABOVE ZERO)");
         }
 
         // pretend we called a payment processing service here :-)

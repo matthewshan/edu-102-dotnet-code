@@ -8,7 +8,7 @@ using Temporalio.Worker;
 using TemporalioDebugActivity;
 using Xunit;
 
-namespace Test;
+namespace TemporalioDebugActivity.Tests;
 
 public class PizzaOrderWorkflowTests
 {
@@ -52,10 +52,7 @@ public class PizzaOrderWorkflowTests
                 .AddActivity(MockDistanceActivityAsync));
 
         var result = await worker.ExecuteAsync(
-            async () =>
-                await env.Client.ExecuteWorkflowAsync(
-                    (PizzaWorkflow wf) => wf.RunAsync(order),
-                    new WorkflowOptions(id: $"wf-{Guid.NewGuid()}", taskQueue: taskQueueId)));
+            () => env.Client.ExecuteWorkflowAsync((PizzaWorkflow wf) => wf.RunAsync(order), new WorkflowOptions(id: $"wf-{Guid.NewGuid()}", taskQueue: taskQueueId)));
 
         Assert.Equal("Z1238", result.OrderNumber);
         Assert.Equal("SUCCESS", result.Status);

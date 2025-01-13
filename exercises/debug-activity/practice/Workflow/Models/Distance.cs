@@ -1,6 +1,3 @@
-namespace TemporalioDebugActivity;
+namespace Temporalio.DebugActivity.Workflow.Models;
 
-public class Distance
-{
-    required public int Kilometers { get; set; }
-}
+public record Distance(int Kilometers = 0);

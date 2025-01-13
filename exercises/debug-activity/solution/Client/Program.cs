@@ -5,11 +5,13 @@ using Temporalio.Client;
 using TemporalioDebugActivity;
 
 // Create a client to localhost on "default" namespace
-var client = await TemporalClient.ConnectAsync(new()
+var client = await TemporalClient.ConnectAsync(new("localhost:7233")
 {
-    TargetHost = "localhost:7233",
+    LoggerFactory = LoggerFactory.Create(builder =>
+        builder.
+            AddSimpleConsole(options => options.TimestampFormat = "[HH:mm:ss] ").
+            SetMinimumLevel(LogLevel.Information)),
 });
-
 var order = CreatePizzaOrder();
 
 // Run workflow

@@ -3,7 +3,7 @@ using Temporalio.Testing;
 using TemporalioDebugActivity;
 using Xunit;
 
-namespace Test;
+namespace TemporalioDebugActivity.Tests;
 
 public class PizzaOrderActivityTests
 {
@@ -75,9 +75,7 @@ public class PizzaOrderActivityTests
             Amount = -1000,
         };
 
-        async Task<OrderConfirmation> ActAsync() => await env.RunAsync(() => activities.SendBillAsync(input));
-
-        var exception = await Assert.ThrowsAsync<ArgumentException>(ActAsync);
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => env.RunAsync(() => activities.SendBillAsync(input)));
         Assert.Equal("invalid charge amount: -1000 (must be above zero)", exception.Message);
     }
 }

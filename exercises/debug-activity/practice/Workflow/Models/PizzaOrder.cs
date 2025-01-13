@@ -1,16 +1,10 @@
 using System.Collections.ObjectModel;
 
-namespace TemporalioDebugActivity;
+namespace Temporalio.DebugActivity.Workflow.Models;
 
-public class PizzaOrder
-{
-    required public string OrderNumber { get; set; }
-
-    required public Customer Customer { get; set; }
-
-    required public Collection<Pizza> Items { get; init; }
-
-    required public bool IsDelivery { get; set; }
-
-    required public Address Address { get; set; }
-}
+public record PizzaOrder(
+    string OrderNumber,
+    Customer Customer,
+    List<Pizza>? Items,
+    bool IsDelivery = false,
+    Address? Address);
