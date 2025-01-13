@@ -11,7 +11,7 @@ var client = await TemporalClient.ConnectAsync(new("localhost:7233")
             AddSimpleConsole(options => options.TimestampFormat = "[HH:mm:ss] ").
             SetMinimumLevel(LogLevel.Information)),
 });
-var input = new TranslationWorkflowInput(args[0], args[1]);
+var input = new TranslatationWorkflow.TranslationWorkflowInput(args[0], args[1]);
 var options = new WorkflowOptions(
             id: "translation-workflow",
             taskQueue: WorkflowConstants.TaskQueueName);

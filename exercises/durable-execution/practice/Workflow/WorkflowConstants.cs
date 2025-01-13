@@ -1,4 +1,4 @@
-namespace TemporalioDurableExecution;
+namespace TemporalioDurableExecution.Workflow;
 
 public static class WorkflowConstants
 {

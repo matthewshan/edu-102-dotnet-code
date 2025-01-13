@@ -21,7 +21,7 @@ var logger = Workflow.Logger;
 
 3. Add a new line after that to log a message at the Info level like:
 
-````csharp
+```csharp
    logger.LogInformation("Hello, my name is", input.Name);
 ```
 
