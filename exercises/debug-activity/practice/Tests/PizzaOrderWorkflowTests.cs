@@ -2,9 +2,11 @@ using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 using Temporalio.Client;
+using Temporalio.DebugActivity.Workflow.Models;
 using Temporalio.Exceptions;
 using Temporalio.Testing;
 using Temporalio.Worker;
+using Temporalio.Workflows;
 using TemporalioDebugActivity;
 using Xunit;
 
@@ -22,19 +24,17 @@ public class PizzaOrderWorkflowTests
         // is within the delivery area
         [Activity("GetDistance")]
         Task<Distance> MockDistanceActivityAsync(Address addr) =>
-            Task.FromResult(new Distance { Kilometers = 10, });
+            Task.FromResult(new Distance(10));
 
         [Activity("SendBill")]
         Task<OrderConfirmation> MockBillActivityAsync(Bill bill) =>
             Task.FromResult(
-                new OrderConfirmation
-                {
-                    OrderNumber = order.OrderNumber,
-                    ConfirmationNumber = "AB9923",
-                    Status = "SUCCESS",
-                    BillingTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-                    Amount = 2500,
-                });
+                new OrderConfirmation(
+                OrderNumber: order.OrderNumber,
+                Status: "SUCCESS",
+                ConfirmationNumber: "AB9923",
+                BillingTimestamp: DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                Amount: 2500));
 
         var loggerFactory = LoggerFactory.Create(builder =>
             builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
@@ -104,36 +104,34 @@ public class PizzaOrderWorkflowTests
 
     private static PizzaOrder CreatePizzaOrderForTest()
     {
-        var customer = new Customer
-        {
-            CustomerId = 12983,
-            Name = "María García",
-            Email = "maria1985@example.com",
-            Phone = "415-555-7418",
-        };
+        var customer = new Customer(
+        CustomerId: 12983,
+        Name: "María García",
+        Phone: "415-555-7418",
+        Email: "maria1985@example.com");
 
-        var address = new Address
-        {
-            Line1 = "701 Mission Street",
-            Line2 = "Apartment 9C",
-            City = "San Francisco",
-            State = "CA",
-            PostalCode = "94103",
-        };
+        var address = new Address(
+        Line1: "701 Mission Street",
+        City: "San Francisco",
+        State: "CA",
+        PostalCode: "94103",
+        Line2: "Apartment 9C");
 
-        var p1 = new Pizza { Description = "Large, with pepperoni", Price = 1500, };
-        var p2 = new Pizza { Description = "Small, with mushrooms and onions", Price = 1000, };
+        var p1 = new Pizza(
+        Description: "Large, with pepperoni",
+        Price: 1500);
+        var p2 = new Pizza(
+            Description: "Small, with mushrooms and onions",
+            Price: 1000);
 
-        var pizzaList = new List<Pizza> { p1, p2, };
+        var pizzaList = new List<Pizza> { p1, p2 };
         var pizzas = new Collection<Pizza>(pizzaList);
 
-        return new PizzaOrder
-        {
-            OrderNumber = "Z1238",
-            Customer = customer,
-            Items = pizzas,
-            Address = address,
-            IsDelivery = true,
-        };
+        return new PizzaOrder(
+        OrderNumber: "Z1238",
+        Customer: customer,
+        Items: pizzas,
+        Address: address,
+        IsDelivery: true);
     }
 }

@@ -1,5 +1,6 @@
 using Temporalio.Exceptions;
 using Temporalio.Workflows;
+using Temporalio.DebugActivity.Workflow.Models;
 
 namespace TemporalioDebugActivity;
 
@@ -27,13 +28,11 @@ public class PizzaWorkflow
         // We use a short Timer duration here to avoid delaying the exercise
         await Workflow.DelayAsync(TimeSpan.FromSeconds(3));
 
-        var bill = new Bill
-        {
-            CustomerId = order.Customer.CustomerId,
-            OrderNumber = order.OrderNumber,
-            Amount = totalPrice,
-            Description = "Pizza",
-        };
+        var bill = new Bill(
+            CustomerId: order.Customer.CustomerId,
+            OrderNumber: order.OrderNumber,
+            Description: "Pizza",
+            Amount: totalPrice);
 
         var confirmation = await Workflow.ExecuteActivityAsync((Activities act) => act.SendBillAsync(bill), options);
 

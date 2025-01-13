@@ -1,10 +1,11 @@
 using System.Collections.ObjectModel;
+using Temporalio.DebugActivity.Workflow.Models;
 
-namespace Temporalio.DebugActivity.Workflow.Models;
+namespace TemporalioDebugActivity;
 
 public record PizzaOrder(
     string OrderNumber,
     Customer Customer,
-    List<Pizza>? Items,
-    bool IsDelivery = false,
-    Address? Address);
+    Collection<Pizza> Items,
+    Address Address,
+    bool IsDelivery = false);

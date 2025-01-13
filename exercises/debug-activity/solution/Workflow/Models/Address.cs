@@ -1,8 +1,8 @@
-Temporalio.DebugActivity.Workflow.Models;
+namespace Temporalio.DebugActivity.Workflow.Models;
 
 public record Address(
     string Line1,
-    string? Line2 = null,
     string City,
     string State,
-    string PostalCode);
+    string PostalCode,
+    string Line2 = "");

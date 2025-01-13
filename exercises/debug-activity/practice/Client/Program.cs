@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using Temporalio.Client;
+using Temporalio.DebugActivity.Workflow.Models;
 using TemporalioDebugActivity;
 
 // Create a client to localhost on "default" namespace
@@ -35,38 +36,35 @@ Workflow result:
 
 PizzaOrder CreatePizzaOrder()
 {
-    var customer = new Customer
-    {
-        CustomerId = 12983,
-        Name = "María García",
-        Email = "maria1985@example.com",
-        Phone = "415-555-7418",
-    };
+    var customer = new Customer(
+        CustomerId: 12983,
+        Name: "María García",
+        Phone: "415-555-7418",
+        Email: "maria1985@example.com");
 
-    var address = new Address
-    {
-        Line1 = "701 Mission Street",
-        Line2 = "Apartment 9C",
-        City = "San Francisco",
-        State = "CA",
-        PostalCode = "94103",
-    };
+    var address = new Address(
+        Line1: "701 Mission Street",
+        City: "San Francisco",
+        State: "CA",
+        PostalCode: "94103",
+        Line2: "Apartment 9C");
 
-    var p1 = new Pizza { Description = "Large, with mushrooms and onions", Price = 1500 };
-    var p2 = new Pizza { Description = "Small, with pepperoni", Price = 1200 };
+    var p1 = new Pizza(
+        Description: "Large, with mushrooms and onions",
+        Price: 1500);
+    var p2 = new Pizza(
+        Description: "Small, with pepperoni",
+        Price: 1200);
     // TODO Part C: Define an additional pizza
 
     // TODO Part C: Add the additional pizza to the pizza list
     var pizzaList = new List<Pizza> { p1, p2 };
-
     var pizzas = new Collection<Pizza>(pizzaList);
 
-    return new PizzaOrder
-    {
-        OrderNumber = "Z1238",
-        Customer = customer,
-        Items = pizzas,
-        Address = address,
-        IsDelivery = true,
-    };
+    return new PizzaOrder(
+        OrderNumber: "Z1238",
+        Customer: customer,
+        Items: pizzas,
+        Address: address,
+        IsDelivery: true);
 }
