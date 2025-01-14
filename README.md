@@ -20,7 +20,7 @@ For the exercises, make sure to run `temporal server start-dev --ui-port 8080 --
 | Directory Name                   | Description                                                                                       |
 | :------------------------------- | :------------------------------------------------------------------------------------------------ |
 | `samples/age-estimation`         | [Calls a remote API to estimate age of a person given their name](samples/age-estimation)         |
-| `samples/using-records` | [Demonstrates how records are passed in as input and output data](samples/using-records) |
+| `samples/using-objects-for-data` | [Demonstrates how objects are passed in as input and output data](samples/using-objects-for-data) |
 
 ## Reference
 
