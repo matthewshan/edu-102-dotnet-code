@@ -21,7 +21,7 @@
   </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Workflow\Workflow.csproj" />
+      <ProjectReference Include="..\Workflow\TemporalDebugActivity.Workflow.csproj" />
     </ItemGroup>
 
 </Project>
