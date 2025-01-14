@@ -14,17 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "using-records", "using-reco
 		exercises\using-records\README.md = exercises\using-records\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "practice", "practice", "{907C25A4-FB29-4985-B8AA-0001A9FF7152}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{4F0CA1E8-6457-4476-B45D-0BB6BDC0F4CD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "exercises\using-records\practice\Application\Application.csproj", "{CE0CBEBF-BE97-49B6-8D49-C51101A8CBC0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "exercises\using-records\practice\Client\Client.csproj", "{37754BE9-607D-4219-9162-1E0C4C3F811C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\using-records\practice\Worker\Worker.csproj", "{E9CF6F5B-9F2D-49F8-AFDA-7EC5264494A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "exercises\using-records\practice\Api\Api.csproj", "{F5B3FFBC-5131-436B-BF18-4616D573F72A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\using-records\solution\Worker\Worker.csproj", "{C22A68EA-06B9-4468-B289-C8299A2316B1}"
 EndProject
@@ -38,16 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "durable-execution", "durabl
 	ProjectSection(SolutionItems) = preProject
 		exercises\durable-execution\README.md = exercises\durable-execution\README.md
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "practice", "practice", "{E50AF71A-F4A6-4C36-96F5-744E55B45E27}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\durable-execution\practice\Worker\Worker.csproj", "{D1C73CF5-6C59-46D0-BFEA-C48B4BC9C5F6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "exercises\durable-execution\practice\Client\Client.csproj", "{75992CB6-97DA-421C-89AE-58C520390F70}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "exercises\durable-execution\practice\Application\Application.csproj", "{AA838AC0-27FE-4F7E-B09B-D9588B012A55}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "exercises\durable-execution\practice\Api\Api.csproj", "{2AAC9F82-634A-434F-AFE7-7830FE411C8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{788AC647-988C-45BF-8BF0-7E65F780A703}"
 EndProject
@@ -63,18 +43,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testingcode", "testingcode"
 	ProjectSection(SolutionItems) = preProject
 		exercises\testingcode\README.md = exercises\testingcode\README.md
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "practice", "practice", "{38DB3C90-9175-4A95-9040-28DB2EBD3EF4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\testingcode\practice\Worker\Worker.csproj", "{6B9A06C7-B075-4027-9353-953DE4F6A63E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "exercises\testingcode\practice\Client\Client.csproj", "{0537B8CB-1646-415D-86FC-D26BE78B4484}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "exercises\testingcode\practice\Application\Application.csproj", "{C8DEC15C-23E9-498A-AB38-561C5DAB9523}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "exercises\testingcode\practice\Api\Api.csproj", "{330CBFF4-41EE-4DC6-A1D9-BADD8C52FCA9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "exercises\testingcode\practice\Test\Test.csproj", "{47C5E714-C234-46DE-9A98-634EDA9E4A64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{732D3B42-2C11-4445-9973-234A6E62F7F4}"
 EndProject
@@ -93,16 +61,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "debug-activity", "debug-act
 		exercises\debug-activity\README.md = exercises\debug-activity\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "practice", "practice", "{D4DA5E0D-1D23-4B1E-85E9-905A28EF2F2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "exercises\debug-activity\practice\Application\Application.csproj", "{90697C02-E443-4FE9-92CF-84F702B8169C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "exercises\debug-activity\practice\Client\Client.csproj", "{8DDE48D6-A7A3-4CEA-9ADC-F4EE19A063EF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\debug-activity\practice\Worker\Worker.csproj", "{9E85B569-DDD5-4CB0-9875-A164D95F510C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "exercises\debug-activity\practice\Test\Test.csproj", "{BBEB598A-03F6-482A-B011-4339217B62D2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{68ED6BD0-8B97-4C81-BCAE-08492776797D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\debug-activity\solution\Worker\Worker.csproj", "{D24C6CC3-9A5E-4AC8-8DE0-A18A0E37A098}"
@@ -117,16 +75,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "versionworkflow", "versionw
 	ProjectSection(SolutionItems) = preProject
 		exercises\versionworkflow\README.md = exercises\versionworkflow\README.md
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "practice", "practice", "{CE118BA6-B460-4405-B28C-7536583A9F98}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "exercises\versionworkflow\practice\Worker\Worker.csproj", "{83082F77-55F3-4BB8-A86A-9676CC1AB03A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "exercises\versionworkflow\practice\Test\Test.csproj", "{7A35B110-6C03-475C-B2A6-E87DCAFC76BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "exercises\versionworkflow\practice\Client\Client.csproj", "{82F6231D-4517-426E-BEBA-3BFD6E0C8C73}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "exercises\versionworkflow\practice\Application\Application.csproj", "{96ED02F7-0E49-49EC-9808-1061FF9D2330}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{0A8566A2-3985-4C79-85F2-5AA5BB57C92C}"
 EndProject
