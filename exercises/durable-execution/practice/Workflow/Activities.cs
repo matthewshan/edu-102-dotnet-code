@@ -4,8 +4,6 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 
-
-
 public class Activities
 {
     private readonly HttpClient client;
@@ -13,6 +11,7 @@ public class Activities
     public Activities(HttpClient client) => this.client = client;
 
     public record TranslateTermInput(string Term, string LanguageCode);
+
     public record TranslateTermOutput(string Translation);
 
     [Activity]

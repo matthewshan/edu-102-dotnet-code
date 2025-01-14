@@ -7,6 +7,7 @@ using Temporalio.Workflows;
 public class TranslationWorkflow
 {
     public record TranslationWorkflowInput(string Name, string LanguageCode);
+
     public record TranslationWorkflowOutput(string HelloMessage, string GoodbyeMessage);
 
     [WorkflowRun]
@@ -22,7 +23,7 @@ public class TranslationWorkflow
         // Include the language code passed as input
         var helloResult = await Workflow.ExecuteActivityAsync(
             (Activities act) => act.TranslateTermAsync(
-                new TranslateTermInput("hello", input.LanguageCode.ToLower())),
+                new Activities.TranslateTermInput("hello", input.LanguageCode.ToLower())),
             activityOptions);
 
         // TODO Part C: At the Information level, log the message: "Sleeping between translation calls"
@@ -32,7 +33,7 @@ public class TranslationWorkflow
         // Include the language code passed as input
         var goodbyeResult = await Workflow.ExecuteActivityAsync(
             (Activities act) => act.TranslateTermAsync(
-                new TranslateTermInput("goodbye", input.LanguageCode.ToLower())),
+                new Activities.TranslateTermInput("goodbye", input.LanguageCode.ToLower())),
             activityOptions);
 
         return new TranslationWorkflowOutput(
