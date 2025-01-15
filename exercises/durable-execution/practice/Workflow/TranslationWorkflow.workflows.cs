@@ -1,6 +1,5 @@
 namespace TemporalioDurableExecution.Workflow;
 
-using Microsoft.Extensions.Logging;
 using Temporalio.Workflows;
 
 [Workflow]

@@ -1,5 +1,4 @@
 // This file is designated to run the Worker
-using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Temporalio.Client;
 using Temporalio.Worker;
