@@ -29,11 +29,47 @@ jobs:
         with:
           dotnet-version: 8
 
-      - name: Build
+      - name: Build durable-execution
         run: dotnet build
         working-directory: exercises/durable-execution/solution/Worker
 
-      - name: Check format
+      - name: Check format durable-executon
         if: ${{ matrix.checkTarget }}
         run: dotnet format --verify-no-changes
         working-directory: exercises/durable-execution/solution/Worker
+      
+      - name: Build debug-activity
+        run: dotnet build
+        working-directory: exercises/debug-activity/solution/Worker
+
+      - name: Check format debug-activity
+        if: ${{ matrix.checkTarget }}
+        run: dotnet format --verify-no-changes
+        working-directory: exercises/debug-activity/solution/Worker
+
+      - name: Build testing-code
+        run: dotnet build
+        working-directory: exercises/testing-code/solution/Worker
+
+      - name: Check format testing-code
+        if: ${{ matrix.checkTarget }}
+        run: dotnet format --verify-no-changes
+        working-directory: exercises/testing-code/solution/Worker
+
+      - name: Build using-records
+        run: dotnet build
+        working-directory: samples/using-records/Worker
+
+      - name: Check format using-records
+        if: ${{ matrix.checkTarget }}
+        run: dotnet format --verify-no-changes
+        working-directory: samples/using-records/Worker
+
+      - name: Build age-estimation
+        run: dotnet build
+        working-directory: samples/age-estimation/Worker
+
+      - name: Check format age-estimation
+        if: ${{ matrix.checkTarget }}
+        run: dotnet format --verify-no-changes
+        working-directory: samples/age-estimation/Worker
