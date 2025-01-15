@@ -1,6 +1,6 @@
-using Temporalio.Workflows;
+namespace TemporalioUsingRecords;
 
-namespace TemporalioDurableExecution;
+using Temporalio.Workflows;
 
 public record TranslationWorkflowInput(string Name, string LanguageCode);
 public record TranslationWorkflowOutput(string HelloMessage, string GoodbyeMessage);
@@ -13,18 +13,22 @@ public class TranslationWorkflow
     {
         var activityOptions = new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(45) };
 
-        var helloResult = await Workflow.ExecuteActivityAsync(
-            (DurableExecutionActivities act) => act.TranslateTermAsync(
-                new TranslationActivityInput("hello", input.LanguageCode.ToLower())),
-            activityOptions);
+        var helloInput = new TranslationActivityInput("Hello", input.LanguageCode);
 
-        var goodbyeResult = await Workflow.ExecuteActivityAsync(
-            (DurableExecutionActivities act) => act.TranslateTermAsync(
-                new TranslationActivityInput("goodbye", input.LanguageCode.ToLower())),
-            activityOptions);
+        var helloResult =
+            await Workflow.ExecuteActivityAsync((Activities act) => act.TranslateTermAsync(helloInput), activityOptions);
 
-        return new TranslationWorkflowOutput(
-            $"{helloResult.Translation}, {input.Name}",
-            $"{goodbyeResult.Translation}, {input.Name}");
+        var helloMessage = $"{helloResult.Translation}, {input.Name}";
+
+        await Workflow.DelayAsync(TimeSpan.FromSeconds(10));
+
+        var goodbyeInput = new TranslationActivityInput("Goodbye", input.LanguageCode);
+
+        var byeMessage =
+            await Workflow.ExecuteActivityAsync((Activities act) => act.TranslateTermAsync(goodbyeInput), activityOptions);
+
+        var goodbyeMessage = $"{byeMessage.Translation}, {input.Name}";
+
+        return new TranslationWorkflowOutput(helloMessage, goodbyeMessage);
     }
 }

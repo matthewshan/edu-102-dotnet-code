@@ -1,9 +1,7 @@
 // This file is designated to run the Worker
-using System.Diagnostics;
-using Microsoft.Extensions.Logging;
 using Temporalio.Client;
 using Temporalio.Worker;
-using TemporalioDurableExecution;
+using TemporalioUsingRecords;
 
 // Create a client to localhost on "default" namespace
 var client = await TemporalClient.ConnectAsync(new("localhost:7233"));
@@ -17,7 +15,7 @@ Console.CancelKeyPress += (_, eventArgs) =>
 };
 
 using var httpClient = new HttpClient();
-var activities = new DurableExecutionActivities(httpClient);
+var activities = new Activities(httpClient);
 
 // Create worker
 using var worker = new TemporalWorker(

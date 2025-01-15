@@ -1,4 +1,4 @@
-namespace TemporalioDurableExecution;
+namespace TemporalioUsingRecords;
 
 public static class WorkflowConstants
 {

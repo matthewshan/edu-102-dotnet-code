@@ -1,16 +1,16 @@
 using System.Text.Json;
 using Temporalio.Activities;
 
-namespace TemporalioDurableExecution;
+namespace TemporalioUsingRecords;
 
 public record TranslationActivityInput(string Term, string LanguageCode);
 public record TranslationActivityOutput(string Translation);
 
-public class DurableExecutionActivities
+public class Activities
 {
     private readonly HttpClient client;
 
-    public DurableExecutionActivities(HttpClient client) => this.client = client;
+    public Activities(HttpClient client) => this.client = client;
 
     [Activity]
     public async Task<TranslationActivityOutput> TranslateTermAsync(TranslationActivityInput input)
