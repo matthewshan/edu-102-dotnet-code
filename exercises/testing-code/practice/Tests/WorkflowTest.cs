@@ -1,10 +1,10 @@
+namespace Test;
+
 using Temporalio.Client;
 using Temporalio.Testing;
 using Temporalio.Worker;
 using TemporalioDurableExecution;
 using Xunit;
-
-namespace Test;
 
 public class TranslationWorkflowTests
 {
@@ -26,7 +26,7 @@ public class TranslationWorkflowTests
 
         await worker.ExecuteAsync(async () =>
         {
-            var input = new TranslationWorkflowInput("Pierre", "fr");
+            var input = new TranslationWorkflow.TranslationWorkflowInput("Pierre", "fr");
             var result = await env.Client.ExecuteWorkflowAsync(
                 (TranslationWorkflow wf) => wf.RunAsync(input),
                 new(id: $"wf-{Guid.NewGuid()}", taskQueue: taskQueueId));

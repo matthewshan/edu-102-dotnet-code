@@ -43,15 +43,15 @@ In addition to verifying that your code behaves correctly when used as you inten
 
 Take a moment to study this code, and then continue with the following steps:
 
-```
+```csharp
 public async Task TestFailedTranslateActivityBadLanguageCodeAsync()
     {
         var env = new ActivityEnvironment();
-        var input = new TranslationActivityInput("Hello", "xq");
+        var input = new Activities.TranslateTermInput("Hello", "xq");
 
         var activities = new DurableExecutionActivities(Client);
 
-        Task<TranslationActivityOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
+        Task<Activities.TranslateTermOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
 
         var exception = await Assert.ThrowsAsync<HttpRequestException>(ActAsync);
         Assert.Equal("HTTP Error BadRequest: \"Unsupported language code: xq\"", exception.Message);
