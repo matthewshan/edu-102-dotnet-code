@@ -1,8 +1,9 @@
+namespace AgeEstimation;
+
 using System.Text.Json;
 using Temporalio.Activities;
 using Temporalio.Api.Dependencies.Google.Api;
 
-namespace AgeEstimation;
 public class AgeEstimationActivities
 {
     private readonly HttpClient client;

@@ -1,6 +1,6 @@
-using Temporalio.Workflows;
+namespace TemporalAgeEstimation.Workflow;
 
-namespace AgeEstimation;
+using Temporalio.Workflows;
 
 [Workflow]
 public class AgeEstimationWorkflow
