@@ -1,8 +1,8 @@
+namespace TemporalioDebugActivity;
+
 using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 using Temporalio.DebugActivity.Workflow.Models;
-
-namespace TemporalioDebugActivity;
 
 public class Activities
 {
@@ -47,7 +47,7 @@ public class Activities
         // reject invalid amounts before calling the payment processor
         if (chargeAmount < 0)
         {
-            throw new ArgumentException($"INVALID CHARGE AMOUNT: {chargeAmount} (MUST BE ABOVE ZERO)");
+            throw new ArgumentException($"Invalid charge amount: {chargeAmount} (must be above zero)");
         }
 
         // pretend we called a payment processing service here :-)

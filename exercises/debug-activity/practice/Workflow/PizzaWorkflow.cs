@@ -1,6 +1,6 @@
+using Temporalio.DebugActivity.Workflow.Models;
 using Temporalio.Exceptions;
 using Temporalio.Workflows;
-using Temporalio.DebugActivity.Workflow.Models;
 
 namespace TemporalioDebugActivity;
 

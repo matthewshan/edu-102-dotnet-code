@@ -1,7 +1,7 @@
+namespace TemporalioDebugActivity;
+
 using System.Collections.ObjectModel;
 using Temporalio.DebugActivity.Workflow.Models;
-
-namespace TemporalioDebugActivity;
 
 public record PizzaOrder(
     string OrderNumber,

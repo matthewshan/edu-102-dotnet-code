@@ -1,14 +1,14 @@
-using System.Collections.ObjectModel;
+namespace TemporalioDebugActivity.Tests;
+
 using Temporalio.DebugActivity.Workflow.Models;
 using Temporalio.Testing;
 using TemporalioDebugActivity;
 using Xunit;
 
-namespace TemporalioDebugActivity.Tests;
 public class PizzaOrderActivityTests
 {
     [Fact]
-    public async Task TestGetDistanceTwoLineAddressAsync()
+    public async Task GetDistanceTwoLineAddressAsync()
     {
         var env = new ActivityEnvironment();
         var activities = new Activities();
@@ -25,7 +25,7 @@ public class PizzaOrderActivityTests
     }
 
     [Fact]
-    public async Task TestGetDistanceOneLineAddressAsync()
+    public async Task GetDistanceOneLineAddressAsync()
     {
         var env = new ActivityEnvironment();
         var activities = new Activities();
@@ -40,7 +40,7 @@ public class PizzaOrderActivityTests
     }
 
     [Fact]
-    public async Task TestSendBillTypicalOrderAsync()
+    public async Task SendBillTypicalOrderAsync()
     {
         var env = new ActivityEnvironment();
         var activities = new Activities();
@@ -57,7 +57,7 @@ public class PizzaOrderActivityTests
     }
 
     [Fact]
-    public async Task TestSendBillAppliesDiscountAsync()
+    public async Task SendBillAppliesDiscountAsync()
     {
         var env = new ActivityEnvironment();
         var activities = new Activities();
@@ -73,7 +73,7 @@ public class PizzaOrderActivityTests
     }
 
     [Fact]
-    public async Task TestSendBillFailsWithNegativeAmountAsync()
+    public async Task SendBillFailsWithNegativeAmountAsync()
     {
         var env = new ActivityEnvironment();
         var activities = new Activities();
@@ -84,6 +84,6 @@ public class PizzaOrderActivityTests
             Amount: -1000);
 
         var exception = await Assert.ThrowsAsync<ArgumentException>(() => env.RunAsync(() => activities.SendBillAsync(input)));
-        Assert.Equal($"INVALID CHARGE AMOUNT: {input.Amount} (MUST BE ABOVE ZERO)", exception.Message);
+        Assert.Equal($"Invalid charge amount: {input.Amount} (must be above zero)", exception.Message);
     }
 }

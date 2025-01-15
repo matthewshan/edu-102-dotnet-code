@@ -6,8 +6,6 @@ using Temporalio.DebugActivity.Workflow.Models;
 using Temporalio.Exceptions;
 using Temporalio.Testing;
 using Temporalio.Worker;
-using Temporalio.Workflows;
-using TemporalioDebugActivity;
 using Xunit;
 
 namespace TemporalioDebugActivity.Tests;
@@ -15,7 +13,7 @@ namespace TemporalioDebugActivity.Tests;
 public class PizzaOrderWorkflowTests
 {
     [Fact]
-    public async Task TestSuccessfulPizzaOrderAsync()
+    public async Task SuccessfulPizzaOrderAsync()
     {
         var taskQueueId = Guid.NewGuid().ToString();
         var order = CreatePizzaOrderForTest();
@@ -61,7 +59,7 @@ public class PizzaOrderWorkflowTests
     }
 
     [Fact]
-    public async Task TestFailedPizzaOrderCustomerOutsideDeliveryAreaAsync()
+    public async Task FailedPizzaOrderCustomerOutsideDeliveryAreaAsync()
     {
         var taskQueueId = Guid.NewGuid().ToString();
         var order = CreatePizzaOrderForTest();
