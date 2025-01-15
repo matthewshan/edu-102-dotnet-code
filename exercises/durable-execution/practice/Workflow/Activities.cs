@@ -1,7 +1,6 @@
 namespace TemporalioDurableExecution.Workflow;
 
 using System.Text.Json;
-using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 
 public class Activities
@@ -17,9 +16,9 @@ public class Activities
     [Activity]
     public async Task<TranslateTermOutput> TranslateTermAsync(TranslateTermInput input)
     {
-        var logger = ActivityExecutionContext.Current.Logger;
-        logger.LogInformation("Translating term {Term} to {LanguageCode}", input.Term, input.LanguageCode);
-
+        // TODO Part B: Define an Activity logger
+        // TODO Part B: At the Information level, include a logging statement that lets the user know which term is being translated
+        // As well as which language
         var lang = Uri.EscapeDataString(input.LanguageCode);
         var term = Uri.EscapeDataString(input.Term.ToLower());
         var url = $"http://localhost:9998/translate?lang={lang}&term={term}";
@@ -28,7 +27,8 @@ public class Activities
 
         response.EnsureSuccessStatusCode();
 
-        logger.LogInformation("Translation successful. Translation: {Translation}", content);
+        // TODO Part B: At the Information level, include a logging statement that lets the user know the translation is successful
+        // and include the translated content.
         var jsonResponse = JsonSerializer.Deserialize<JsonElement>(content);
         var translation = jsonResponse.GetProperty("translation").GetString() ?? string.Empty;
         return new TranslateTermOutput(translation);
