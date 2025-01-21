@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 using Temporalio.Client;
-using TemporalioDebugActivity.DebugActivity.Workflow.Models;
+using Temporalio.DebugActivity.Workflow.Models;
 using Temporalio.Exceptions;
 using Temporalio.Testing;
 using Temporalio.Worker;

@@ -1,5 +1,8 @@
 namespace TemporalioDebugActivity.Tests;
+
+using Temporalio.DebugActivity.Workflow.Models;
 using Temporalio.Testing;
+using TemporalioDebugActivity;
 using Xunit;
 
 public class PizzaOrderActivityTests
