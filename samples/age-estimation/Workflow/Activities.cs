@@ -1,3 +1,5 @@
+namespace AgeEstimation;
+
 using System.Text.Json;
 using TemporalAgeEstimation.Workflow.Models;
 using Temporalio.Activities;

@@ -1,6 +1,6 @@
-using Temporalio.Workflows;
+namespace TemporalAgeEstimation.Workflow;
 
-namespace TemporalAgeEstimation;
+using Temporalio.Workflows;
 
 [Workflow]
 public class AgeEstimationWorkflow
@@ -8,9 +8,9 @@ public class AgeEstimationWorkflow
     [WorkflowRun]
     public async Task<string> RunAsync(string name)
     {
-        var age = await Temporalio.Workflows.Workflow.ExecuteActivityAsync(
+        var age = await Workflow.ExecuteActivityAsync(
             (AgeEstimationActivities act) => act.RetrieveEstimateAsync(name),
-            new() { StartToCloseTimeout = TimeSpan.FromSeconds(30) });
+            new() { StartToCloseTimeout = TimeSpan.FromSeconds(5) });
         return $"{name} has an estimated age of {age}";
     }
 }
