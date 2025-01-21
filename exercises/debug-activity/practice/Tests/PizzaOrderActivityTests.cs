@@ -26,11 +26,11 @@ public class PizzaOrderActivityTests
     {
         var env = new ActivityEnvironment();
         var activities = new Activities();
-        var input = new Bill(
-            CustomerId: 12983,
-            OrderNumber: "PI314",
-            Description: "2 large cheese pizzas",
-            Amount: 2600); // amount does not qualify for discount
+        var input = new Address(
+            Line1: "917 Delores Street",
+            City: "San Francisco",
+            State: "CA",
+            PostalCode: "94103");
 
         var result = await env.RunAsync(() => activities.GetDistanceAsync(input));
         Assert.Equal(8, result.Kilometers);
@@ -44,8 +44,8 @@ public class PizzaOrderActivityTests
         var input = new Bill(
             CustomerId: 12983,
             OrderNumber: "PI314",
-            Description: "5 large cheese pizzas",
-            Amount: 6500); // amount qualifies for discount
+            Description: "2 large cheese pizzas",
+            Amount: 2600); // amount does not qualify for discount
 
         var result = await env.RunAsync(() => activities.SendBillAsync(input));
 
