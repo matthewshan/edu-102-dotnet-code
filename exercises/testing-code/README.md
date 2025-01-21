@@ -26,7 +26,6 @@ Since the test runs the Activity, which in turn calls the microservice to do the
 and 
 `dotnet test`
 
-
 ## Part B: Write and Run Another Test for the Activity
 
 Now it's time to develop and run your own unit test, this time verifying that the Activity correctly supports the translation of a different word in a different language.
@@ -45,17 +44,17 @@ Take a moment to study this code, and then continue with the following steps:
 
 ```csharp
 public async Task TestFailedTranslateActivityBadLanguageCodeAsync()
-    {
-        var env = new ActivityEnvironment();
-        var input = new Activities.TranslateTermInput("Hello", "xq");
+{
+    var env = new ActivityEnvironment();
+    var input = new Activities.TranslateTermInput("Hello", "xq");
 
-        var activities = new Activities(Client);
+    var activities = new Activities(Client);
 
-        Task<Activities.TranslateTermOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
+    Task<Activities.TranslateTermOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
 
-        var exception = await Assert.ThrowsAsync<HttpRequestException>(ActAsync);
-        Assert.Contains("HTTP Error BadRequest: \"Unsupported language code: xq\"", exception.Message);
-    }
+    var exception = await Assert.ThrowsAsync<HttpRequestException>(ActAsync);
+    Assert.Contains("Response status code does not indicate success", exception.Message);
+}
 ```
 
 1. Copy the entire `TestFailedTranslateActivityBadLanguageCode` function provided above and paste it at the bottom of the [Tests/ActivityTest.cs](./practice/Tests/ActivityTest.cs) file
