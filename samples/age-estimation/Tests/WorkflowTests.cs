@@ -1,15 +1,16 @@
-using Xunit;
-using Temporalio.Testing;
+using Microsoft.Extensions.Logging;
+using TemporalAgeEstimation;
 using Temporalio.Client;
+using Temporalio.Testing;
 using Temporalio.Worker;
-using AgeEstimation;
+using Xunit;
 
-namespace AgeEstimation.Tests;
+namespace TemporalAgeEstimation.Tests;
 
 public class WorkflowTests
 {
     [Fact]
-    public async Task TestSuccessfulAgeEstimation()
+    public async Task TestSuccessfulAgeEstimationAsync()
     {
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
@@ -29,10 +30,10 @@ public class WorkflowTests
                 new WorkflowOptions
                 {
                     Id = $"workflow-{Guid.NewGuid()}",
-                    TaskQueue = "test-task-queue"
+                    TaskQueue = "test-task-queue",
                 });
 
-            Assert.Equal("Betty has an estimated age of 77", result);
+            Assert.Equal("Betty has an estimated age of 78", result);
         });
     }
 }

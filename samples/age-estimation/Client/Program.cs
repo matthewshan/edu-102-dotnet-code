@@ -1,4 +1,4 @@
-using AgeEstimation;
+using TemporalAgeEstimation;
 using Temporalio.Client;
 
 // Create a client to localhost on "default" namespace

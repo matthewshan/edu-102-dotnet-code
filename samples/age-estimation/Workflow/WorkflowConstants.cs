@@ -1,4 +1,4 @@
-namespace AgeEstimation;
+namespace TemporalAgeEstimation;
 
 public static class WorkflowConstants
 {

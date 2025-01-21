@@ -1,11 +1,19 @@
 using System.Text.Json;
+using TemporalAgeEstimation.Workflow.Models;
 using Temporalio.Activities;
 using Temporalio.Api.Dependencies.Google.Api;
 
-namespace AgeEstimation;
+namespace TemporalAgeEstimation;
+
 public class AgeEstimationActivities
 {
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+    };
+
     private readonly HttpClient client;
+
     public AgeEstimationActivities(HttpClient client) => this.client = client;
 
     [Activity]
@@ -15,7 +23,7 @@ public class AgeEstimationActivities
         var url = $"https://api.agify.io/?name={encodedName}";
         var response = await client.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<EstimatorResponse>(content);
-        return result?.age ?? 0;
+        var result = JsonSerializer.Deserialize<EstimatorResponse>(content, JsonOptions);
+        return result?.Age ?? 0;
     }
 }

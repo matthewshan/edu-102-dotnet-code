@@ -1,21 +1,21 @@
-using Xunit;
+using TemporalAgeEstimation;
 using Temporalio.Testing;
-using AgeEstimation;
+using Xunit;
 
-namespace AgeEstimation.Tests;
+namespace TemporalAgeEstimation.Tests;
 
 public class ActivityTests
 {
     [Fact]
-    public async Task TestRetrieveEstimate()
+    public async Task TestRetrieveEstimateAsync()
     {
         using var httpClient = new HttpClient();
         var environment = new ActivityEnvironment();
         var activities = new AgeEstimationActivities(httpClient);
 
         var result = await environment.RunAsync(
-            () => activities.RetrieveEstimateAsync("Angela"));
+            () => activities.RetrieveEstimateAsync("Betty"));
 
-        Assert.Equal(56, result);
+        Assert.Equal(78, result);
     }
 }

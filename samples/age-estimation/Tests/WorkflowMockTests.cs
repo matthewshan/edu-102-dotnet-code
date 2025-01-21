@@ -1,17 +1,18 @@
-using Xunit;
 using Microsoft.Extensions.Logging;
-using Temporalio.Testing;
-using Temporalio.Client;
-using Temporalio.Worker;
+using TemporalAgeEstimation;
 using Temporalio.Activities;
-using AgeEstimation;
+using Temporalio.Client;
+using Temporalio.Testing;
+using Temporalio.Worker;
+using Temporalio.Workflows;
+using Xunit;
 
-namespace AgeEstimation.Tests;
+namespace TemporalAgeEstimation.Tests;
 
 public class WorkflowMockTests
 {
     [Fact]
-    async Task TestWithMockActivity()
+    public async Task TestWithMockActivityAsync()
     {
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync(new()
         {
@@ -22,13 +23,13 @@ public class WorkflowMockTests
         });
 
         [Activity("RetrieveEstimate")]
-        static Task<int> MockRetrieveEstimate(string name) =>
+        static Task<int> MockRetrieveEstimateAsync(string name) =>
             Task.FromResult(name == "Stanislav" ? 68 : 0);
 
         using var worker = new TemporalWorker(
             env.Client,
             new TemporalWorkerOptions("test-task-queue")
-                .AddActivity(MockRetrieveEstimate)
+                .AddActivity(MockRetrieveEstimateAsync)
                 .AddWorkflow<AgeEstimationWorkflow>());
 
         await worker.ExecuteAsync(async () =>
@@ -38,7 +39,7 @@ public class WorkflowMockTests
                 new WorkflowOptions
                 {
                     Id = $"workflow-{Guid.NewGuid()}",
-                    TaskQueue = "test-task-queue"
+                    TaskQueue = "test-task-queue",
                 });
 
             Assert.Equal("Stanislav has an estimated age of 68", result);
