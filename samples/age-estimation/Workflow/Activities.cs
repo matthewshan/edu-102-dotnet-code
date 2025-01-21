@@ -1,11 +1,9 @@
-namespace AgeEstimation;
+namespace TemporalAgeEstimation.Workflow;
 
 using System.Text.Json;
 using TemporalAgeEstimation.Workflow.Models;
 using Temporalio.Activities;
 using Temporalio.Api.Dependencies.Google.Api;
-
-namespace TemporalAgeEstimation;
 
 public class AgeEstimationActivities
 {

@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\Workflow\TemporalAgeEstimation.Workflow.csproj" />
-  </ItemGroup>
-
-</Project>

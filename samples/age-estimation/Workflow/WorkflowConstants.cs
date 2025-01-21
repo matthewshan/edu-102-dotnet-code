@@ -1,4 +1,4 @@
-namespace TemporalAgeEsimtation.Workflow;
+namespace TemporalAgeEstimation.Workflow;
 
 public static class WorkflowConstants
 {
