@@ -1,9 +1,9 @@
-namespace Test;
+namespace TemporalDurableExecution.Tests;
 
 using Temporalio.Client;
 using Temporalio.Testing;
 using Temporalio.Worker;
-using TemporalioDurableExecution;
+using TemporalioDurableExecution.Workflow;
 using Xunit;
 
 public class TranslationWorkflowMockTests
@@ -17,7 +17,7 @@ public class TranslationWorkflowMockTests
 
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
-        var activities = new DurableExecutionActivities(Client);
+        var activities = new Activities(Client);
 
         using var worker = new TemporalWorker(
             env.Client,
@@ -27,7 +27,7 @@ public class TranslationWorkflowMockTests
 
         await worker.ExecuteAsync(async () =>
         {
-            var input = new Activities.TranslateTermInput("Pierre", "fr");
+            var input = new TranslationWorkflow.TranslationWorkflowInput("Pierre", "fr");
 
             var result = await env.Client.ExecuteWorkflowAsync(
                 (TranslationWorkflow wf) => wf.RunAsync(input),

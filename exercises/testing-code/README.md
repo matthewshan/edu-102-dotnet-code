@@ -35,7 +35,7 @@ Now it's time to develop and run your own unit test, this time verifying that th
 2. Copy the `TestSuccessfulTranslateActivityHelloGerman` function, renaming the new function as `TestSuccessfulTranslateActivityGoodbyeLatvian`
 3. Change the term for the input from `Hello` to `Goodbye`
 4. Change the language code for the input from `de` (German) to `lv` (Latvian)
-5. Assert that translation returned by the Activity is `Ardievu`
+5. Assert that translation returned by the Activity is `ardievu`
 
 ## Part C: Test the Activity with Invalid Input
 
@@ -49,12 +49,12 @@ public async Task TestFailedTranslateActivityBadLanguageCodeAsync()
         var env = new ActivityEnvironment();
         var input = new Activities.TranslateTermInput("Hello", "xq");
 
-        var activities = new DurableExecutionActivities(Client);
+        var activities = new Activities(Client);
 
         Task<Activities.TranslateTermOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
 
         var exception = await Assert.ThrowsAsync<HttpRequestException>(ActAsync);
-        Assert.Equal("HTTP Error BadRequest: \"Unsupported language code: xq\"", exception.Message);
+        Assert.Contains("HTTP Error BadRequest: \"Unsupported language code: xq\"", exception.Message);
     }
 ```
 

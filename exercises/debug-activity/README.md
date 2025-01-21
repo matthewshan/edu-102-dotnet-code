@@ -94,7 +94,7 @@ You should have observed that the `SendBill` Activity is failing with an error t
 1. Run `dotnet test` from within the `Tests` subdirectory. You should observe that all tests pass.
    - Unfortunately, the co-worker who implemented the code to apply a discount did not write a test case for it. Deploying the untested code is what led to this failure, but writing a test now will help you to verify the fix.
 2. Open the [Test/PizzaOrderActivityTests.cs](./practice/Test/PizzaOrderActivityTests.cs) file in the editor
-3. Add a new test by copying the existing `TestSendBillTypicalOrderAsync` function and renaming the new function as `TestSendBillAppliesDiscountAsync`, and then make the following changes to it:
+3. Add a new test by copying the existing `SendBillTypicalOrderAsync` function and renaming the new function as `SendBillAppliesDiscountAsync`, and then make the following changes to it:
    - Change the `Description` to `5 large cheese pizzas`
    - Change the `Amount` to `6500` ($65)
    - Change the comment next to the `Amount` field to say `amount qualifies for discount`
