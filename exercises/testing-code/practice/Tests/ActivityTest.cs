@@ -1,7 +1,7 @@
-namespace Test;
+namespace TemporalDurableExecution.Tests;
 
 using Temporalio.Testing;
-using TemporalioDurableExecution;
+using TemporalioDurableExecution.Workflow;
 using Xunit;
 
 public class TranslationActivityTests
@@ -14,8 +14,8 @@ public class TranslationActivityTests
         var env = new ActivityEnvironment();
         var input = new Activities.TranslateTermInput("Hello", "de");
 
-        var activities = new DurableExecutionActivities(Client);
-        var result = await env.RunAsync(() => Activities.TranslateTermAsync(input));
+        var activities = new Activities(Client);
+        var result = await env.RunAsync(() => activities.TranslateTermAsync(input));
 
         Assert.Equal("hallo", result.Translation);
     }

@@ -1,9 +1,9 @@
-namespace Test;
+namespace TemporalDurableExecution.Workflow;
 
 using Temporalio.Client;
 using Temporalio.Testing;
 using Temporalio.Worker;
-using TemporalioDurableExecution;
+using TemporalioDurableExecution.Workflow;
 using Xunit;
 
 public class TranslationWorkflowTests
@@ -16,7 +16,7 @@ public class TranslationWorkflowTests
         var taskQueueId = Guid.NewGuid().ToString();
         await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
 
-        var activities = new DurableExecutionActivities(Client);
+        var activities = new Activities(Client);
 
         using var worker = new TemporalWorker(
             env.Client,
