@@ -12,7 +12,7 @@ Make your changes to the code in the `practice` subdirectory (look for `TODO` co
 
 ## Part A: Add Logging to the Workflow Code
 
-1. In the `Workflow` directory, edit the `TranslationWorkflow.cs` file
+1. In the `Workflow` directory, edit the `TranslationWorkflow.workflows.cs` file
 2. Define a Workflow logger at the top of the Workflow function. The syntax would be:
 
 ```csharp
@@ -34,13 +34,17 @@ var logger = Workflow.Logger;
 ## Part B: Add Logging to the Activity Code
 
 1. In the `Workflow` directory, edit the `Activities.cs` file
-2. Define an Activity logger at the top of the Activity function
+2. Define an Activity logger at the top of the Activity function. The syntax would be:
+
+```csharp
+var logger = ActivityExecutionContext.Current.Logger;
+```
+
 3. Insert a logging statement at the Info level just after this, so you'll know when the Activity is invoked.
    1. Include the term being translated and the language code
-4. Optionally, add log statements at the Error level anywhere that the Activity throws an Exception
-5. Near the bottom of the function, use the Information level to log the successful translation
+4. Near the bottom of the function, use the Information level to log the successful translation
    1. Include the translated term
-6. Save your changes
+5. Save your changes
 
 ## Part C: Add a Timer to the Workflow
 You will now add a Timer between the two Activity calls in the Workflow Definition, which will make it easier to observe durable execution in the next section.
@@ -59,8 +63,8 @@ Before proceeding, make sure that there are no Workers running for this or any p
 4. In another terminal, execute the Workflow by running `dotnet run --project Client Tatiana sk` (replace `Tatiana` with your first name)
 5. Observe the output in the terminal windows used by each Worker
 6. As soon as you see a log message in one of the Worker terminals indicating that it has started the Timer, press Ctrl-C in that window to kill that Worker process.
-7. Switch to the terminal window for the other Worker process. Within a few seconds, you should observe new output, indicating that it has resumed execution of the Workflow.
-8. Once you see log output indicating that translation was successful, switch back to the terminal window where you started the Workflow.
+7. Switch to the terminal window for the other Worker process. You can see that the other Worker is still running, resuming execution of the Workflow.
+8. Switch back to the terminal window where you started the Workflow.
 
 After the final step, you should see the translated Hello and Goodbye messages, which confirms that Workflow Execution completed successfully despite the original Worker being killed.
 
