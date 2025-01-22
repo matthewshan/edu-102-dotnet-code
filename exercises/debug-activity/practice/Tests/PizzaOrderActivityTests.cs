@@ -56,7 +56,7 @@ public class PizzaOrderActivityTests
         Assert.Equal(2600, result.Amount);
     }
 
-    // TODO: Write the TestSendBillAppliesDiscountAsync Test
+    // TODO: Write the SendBillAppliesDiscountAsync Test
     [Fact]
     public async Task SendBillFailsWithNegativeAmountAsync()
     {
