@@ -1,6 +1,7 @@
 namespace TemporalioDurableExecution.Workflow;
 
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using Temporalio.Activities;
 
 public class Activities
