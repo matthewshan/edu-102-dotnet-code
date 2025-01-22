@@ -31,11 +31,11 @@ public class TranslationWorkflow
         logger.LogInformation("Preparing to translate 'Goodbye', '{LanguageCode}'", input.LanguageCode);
         var goodbyeResult = await Workflow.ExecuteActivityAsync(
             (Activities act) => act.TranslateTermAsync(
-                new Activities.TranslateTermInput("goodbye" input.LanguageCode.ToLower())),
+                new Activities.TranslateTermInput("goodbye", input.LanguageCode.ToLower())),
             activityOptions);
 
         return new TranslationWorkflowOutput(
             $"{helloResult.Translation}, {input.Name}",
-            $"{goodbyeResult.Translation}, {input.Name}");
+            $"{goodbyeResult.Translation} {input.Name}");
     }
 }
