@@ -31,6 +31,7 @@ using var worker = new TemporalWorker(
 
 // Run worker until cancelled
 Console.WriteLine($"Running worker...{client.Connection.Options.Identity}");
+
 try
 {
     await worker.ExecuteAsync(tokenSource.Token);
