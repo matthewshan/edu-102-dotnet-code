@@ -30,7 +30,7 @@ using var worker = new TemporalWorker(
         .AddWorkflow<TranslationWorkflow>());
 
 // Run worker until cancelled
-Console.WriteLine($"Running worker...{client.Connection.Options.Identity}");
+Console.WriteLine("Running worker");
 
 try
 {
