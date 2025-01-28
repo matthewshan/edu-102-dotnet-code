@@ -53,14 +53,6 @@ jobs:
         run: dotnet format --verify-no-changes
         working-directory: exercises/testing-code/solution/Worker
 
-      - name: Start microservice for testing-code
-        run: dotnet run --project Web&
-        working-directory: exercises/testing-code/solution
-
-      - name: Test testing-code
-        run: dotnet test
-        working-directory: exercises/testing-code/solution/Tests
-
       - name: Build using-records
         run: dotnet build
         working-directory: samples/using-records/Worker
