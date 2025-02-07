@@ -13,9 +13,12 @@ var client = await TemporalClient.ConnectAsync(new("localhost:7233")
 });
 
 var input = new TranslationWorkflow.TranslationWorkflowInput(args[0], args[1]);
-var options = new WorkflowOptions(
-            id: "translation-workflow",
-            taskQueue: WorkflowConstants.TaskQueueName);
+var options = new WorkflowOptions
+{
+    Id = "translation-workflow",
+    TaskQueue = WorkflowConstants.TaskQueueName,
+    IdReusePolicy = WorkflowIdReusePolicy.AllowDuplicate,
+};
 
 // Run workflow
 var result = await client.ExecuteWorkflowAsync(
