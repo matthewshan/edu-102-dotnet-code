@@ -36,6 +36,6 @@ public class TranslationWorkflow
 
         return new TranslationWorkflowOutput(
             $"{helloResult.Translation}, {input.Name}",
-            $"{goodbyeResult.Translation} {input.Name}");
+            $"{goodbyeResult.Translation}, {input.Name}");
     }
 }

@@ -41,7 +41,7 @@ public class Activities
         {
             logger.LogInformation("Applying discount");
 
-            chargeAmount = -500; // reduce amount charged by 500 cents
+            chargeAmount -= 500; // reduce amount charged by 500 cents
         }
 
         // reject invalid amounts before calling the payment processor

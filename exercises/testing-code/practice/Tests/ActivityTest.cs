@@ -19,4 +19,30 @@ public class TranslationActivityTests
 
         Assert.Equal("hallo", result.Translation);
     }
+
+    [Fact]
+    public async Task TestSuccessfulTranslateActivityGoodbyeLatvianAsync()
+    {
+        var env = new ActivityEnvironment();
+        var input = new Activities.TranslateTermInput("Goodbye", "lv");
+
+        var activities = new Activities(Client);
+        var result = await env.RunAsync(() => activities.TranslateTermAsync(input));
+
+        Assert.Equal("ardievu", result.Translation);
+    }
+
+    [Fact]
+    public async Task TestFailedTranslateActivityBadLanguageCodeAsync()
+    {
+        var env = new ActivityEnvironment();
+        var input = new Activities.TranslateTermInput("Hello", "xq");
+
+        var activities = new Activities(Client);
+
+        Task<Activities.TranslateTermOutput> ActAsync() => env.RunAsync(() => activities.TranslateTermAsync(input));
+
+        var exception = await Assert.ThrowsAsync<HttpRequestException>(ActAsync);
+        Assert.Contains("Response status code does not indicate success", exception.Message);
+    }
 }

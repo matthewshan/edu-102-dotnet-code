@@ -56,7 +56,6 @@ public class PizzaOrderActivityTests
         Assert.Equal(2600, result.Amount);
     }
 
-    // TODO: Write the SendBillAppliesDiscountAsync Test
     [Fact]
     public async Task SendBillFailsWithNegativeAmountAsync()
     {
@@ -70,5 +69,22 @@ public class PizzaOrderActivityTests
 
         var exception = await Assert.ThrowsAsync<ArgumentException>(() => env.RunAsync(() => activities.SendBillAsync(input)));
         Assert.Equal($"Invalid charge amount: {input.Amount} (must be above zero)", exception.Message);
+    }
+
+    [Fact]
+    public async Task SendBillAppliesDiscountAsync()
+    {
+        var env = new ActivityEnvironment();
+        var activities = new Activities();
+        var input = new Bill(
+            CustomerId: 21974,
+            OrderNumber: "OU812",
+            Description: "5 large cheese pizzas",
+            Amount: 6500); // amount qualifies for discount
+
+        var result = await env.RunAsync(() => activities.SendBillAsync(input));
+
+        Assert.Equal("OU812", result.OrderNumber);
+        Assert.Equal(6000, result.Amount);
     }
 }
